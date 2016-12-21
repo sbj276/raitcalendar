@@ -40,6 +40,7 @@ $old_events = $req->fetchAll();
 	<link href='css/fullcalendar.css' rel='stylesheet' />
 
     <link rel="stylesheet" type="text/css" href="../css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/chatbubbles.css">
 
     <!-- Custom CSS -->
     <style>
@@ -112,7 +113,8 @@ tr{
 
                 				<!--sidediv-->
 				<div id="colorcor" class="colorcor">
-						<table align="left"style="boder:1px solid black; width:100%">
+						<!-- not required as we have to -->
+						<!-- <table align="left"style="boder:1px solid black; width:100%">
 						<col width="80">
 						<col width="1">
 						<tr><th>Categories:</th>
@@ -161,9 +163,9 @@ tr{
 						</tr>
 						<tr><td align="left">Others</td><td style="border-radius: 40px!important;" bgcolor="#000000"></td>
 						</tr>
-						</table>
-						</br></br>
-						<h5><i class="fa fa-download" aria-hidden="true"></i><a href="link/to/your/download/file" download="filename">Download Manual</a></h5>
+						</table> -->
+						<!-- </br></br>
+						<h5><i class="fa fa-download" aria-hidden="true"></i><a href="link/to/your/download/file" download="filename">Download Manual</a></h5> -->
 		        </div>
 				<!--sidedivclose-->
             </div>
@@ -231,11 +233,22 @@ tr{
 		</div>
 	</div>
 </div>
+
+
     </div>
+
+    <div class="talk-bubble border round btm-right-in bubble">
+		<div class="talktext">
+		   <p>mandeep</p>
+		</div>
+	</div>
+
+
     <!-- /.container -->
 
     <!-- jQuery Version 1.11.1 -->
     <script src="js/jquery.js"></script>
+    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
@@ -246,8 +259,11 @@ tr{
 	
 	<script>
 
+
+	
 	$(document).ready(function() {
 		
+		$(".bubble").hide();
 		$('#calendar').fullCalendar({
 			header: {
 				left: 'prev,next today',
@@ -258,6 +274,14 @@ tr{
 			eventLimit: true, // allow "more" link when too many events
 			selectable: false,
 			selectHelper: false,
+			eventMouseover: function(event, jsEvent, view){
+				// // alert(event);
+				// console.log(event.title);
+				// console.log(jsEvent);
+				// console.log(view);
+
+				show(event.title);
+			},
 			select: function(start, end) {
 				
 				$('#ModalAdd #start').val(moment(start).format('YYYY-MM-DD HH:mm:ss'));
@@ -332,6 +356,12 @@ tr{
 			]
 		});		
 	});
+
+	function show(data){
+		$(".bubble").hide();
+		$(".bubble").find('p').html(data);
+		$(".bubble").show("drop",{direction: "right"});
+	}
 
 </script>
 

@@ -275,12 +275,12 @@ tr{
 			selectable: false,
 			selectHelper: false,
 			eventMouseover: function(event, jsEvent, view){
-				// // alert(event);
-				// console.log(event.title);
-				// console.log(jsEvent);
-				// console.log(view);
-
-				show(event.title);
+				// $(".bubble").hide();
+				$(".bubble").find('p').html(event.title);
+				$(".bubble").toggle("drop",{direction: "right"});
+			},
+			eventMouseout: function(event, jsEvent, view){
+				$(".bubble").toggle("drop",{direction: "right"});
 			},
 			select: function(start, end) {
 				
@@ -356,13 +356,6 @@ tr{
 			]
 		});		
 	});
-
-	function show(data){
-		$(".bubble").hide();
-		$(".bubble").find('p').html(data);
-		$(".bubble").show("drop",{direction: "right"});
-	}
-
 </script>
 
 </body>

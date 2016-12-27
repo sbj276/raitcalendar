@@ -333,7 +333,7 @@ tr{
 			?>
 				{
 					id: '<?php echo $event['event_id']; ?>',
-					title: "<?php echo $event['event_name']; ?>",
+					title: "<?php echo "[".$event['category']."] : ".$event['event_name']; ?>",
 					start: '<?php echo $start; ?>',
 					end: '<?php echo $end; ?>',
 					color: '<?php echo $event['color']; ?>',

@@ -8,16 +8,6 @@ $req = $bdd->prepare($sql);
 $req->execute();
 
 $events = $req->fetchAll();
-
-//fetching all the preexisting events
-$sql = "SELECT `cal_events`.event_id AS event_id, `cal_events`.event_name AS event_name, `cal_events`.start_date AS start_date, `cal_events`.location AS location, `cal_events`.category AS category, `cal_events`.end_date AS end_date, `cal_events`.event_desc AS description,`cal_events`.branch AS branch, `category_table`.category_color AS color, `category_table`.branch_indicator AS indicator FROM cal_events LEFT JOIN category_table ON `cal_events`.branch=`category_table`.name OR `cal_events`.category=`category_table`.name GROUP BY event_id";
-
-$req = $bdd->prepare($sql);
-$req->execute();
-
-$old_events = $req->fetchAll();
-
-
 ?>
 
 <!DOCTYPE html>
@@ -110,70 +100,11 @@ tr{
             <div class="col-lg-12 text-center">
                 <div id="calendar" class="col-centered">
                 </div>
-
-                				<!--sidediv-->
-				<div id="colorcor" class="colorcor">
-						<!-- not required as we have to -->
-						<!-- <table align="left"style="boder:1px solid black; width:100%">
-						<col width="80">
-						<col width="1">
-						<tr><th>Categories:</th>
-						<th></th>
-						</tr>
-						<tr><td align="left">Computer</td>
-						<td ><i class="fa fa-desktop" aria-hidden="true"></i></td>
-						</tr>
-						<tr><td align="left">IT</td>
-						<td><i class="fa fa-globe" aria-hidden="true"></i></td>
-						</tr>
-						<tr><td align="left">Electronics</td>
-						<td ><i class="fa fa-plug" aria-hidden="true"></i></td>
-						</tr>
-						<tr><td align="left">EXTC</td><td><i class="fa fa-signal" aria-hidden="true"></i></td>
-						</tr>
-						<tr><td align="left">Instrumentation</td><td><i class="fa fa-wrench" aria-hidden="true"></i></td>
-						</tr>
-						<tr><td align="left">FE</td><td><i class="fa fa-book" aria-hidden="true"></i> </td>
-						</tr>
-						<tr><td align="left">Technical</td><td style="border-radius: 40px!important;" bgcolor="#0000FF"></td>
-						</tr>
-						<tr><td align="left">Examination</td><td style="border-radius: 40px!important;" bgcolor="#A52A2A"></td>
-						</tr>
-						<tr><td align="left">Placement</td><td style="border-radius: 40px!important;" bgcolor="#7FFF00"></td>
-						</tr>
-						<tr><td align="left">Administration</td><td style="border-radius: 40px!important;" bgcolor="#FF8C00"></td>
-						</tr>
-						<tr><td align="left">Alumni</td><td style="border-radius: 40px!important;" bgcolor="#00CED1"></td>
-						</tr>
-						<tr><td align="left">Workshops/Seminars</td><td style="border-radius: 40px!important;" bgcolor="#A0522D"></td>
-						</tr>
-						<tr><td align="left">Cultural</td><td style="border-radius: 40px!important;" bgcolor="#006400"></td>
-						</tr>
-						<tr><td align="left">Fests</td><td style="border-radius: 40px!important;" bgcolor="#8A2BE2"></td>
-						</tr>
-						<tr><td align="left">Sports</td><td style="border-radius: 40px!important;" bgcolor="#FFFF00"></td>
-						</tr>
-						<tr><td align="left">Committees</td><td style="border-radius: 40px!important;" bgcolor="#EE82EE"></td>
-						</tr>
-						<tr><td align="left">Faculty</td><td style="border-radius: 40px!important;" bgcolor="#00FFFF"></td>
-						</tr>
-						<tr><td align="left">Students</td><td style="border-radius: 40px!important;" bgcolor="#808080"></td>
-						</tr>
-						<tr><td align="left">Holiday</td><td  style="border-radius: 40px!important;" bgcolor="#FF0000"></td>
-						</tr>
-						<tr><td align="left">Others</td><td style="border-radius: 40px!important;" bgcolor="#000000"></td>
-						</tr>
-						</table> -->
-						<!-- </br></br>
-						<h5><i class="fa fa-download" aria-hidden="true"></i><a href="link/to/your/download/file" download="filename">Download Manual</a></h5> -->
-		        </div>
-				<!--sidedivclose-->
             </div>
 			
         </div>
         <!-- /.row -->
 		
-		<!-- Modal -->
 		<!-- Modal -->
 		<div class="modal fade" id="ModalDescription" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 		  <div class="modal-dialog" role="document">

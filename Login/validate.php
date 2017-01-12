@@ -40,6 +40,10 @@ $epass=encryptIt($pass);
 if($row["username"]==$username && $row["password"]==$epass)
 {
 			$_SESSION['login'] = "$username";
+			//populate the log table
+			//still to be tested
+			//TODO: remove constant IP
+			$log_sql = "INSERT INTO `log_user`(`timestamp`, `operation`, `user`, `IP`) VALUES (NOW(),'LOGIN','$username','0.0.0.0')";
 			header('Location: ../EditModeCalendar');  
 }
 

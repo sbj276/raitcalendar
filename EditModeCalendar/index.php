@@ -293,10 +293,6 @@ tr{
     		tickIcon: 'fa-check'
 		});
 
-		// $('.datepicker').datetimepicker({
-  //           format : 'YYYY/MM/DD HH:mm:ss'
-  //       });
-
 		$('#calendar').fullCalendar({
 			header: {
 				left: 'prev,next today',
@@ -440,9 +436,7 @@ tr{
 				}
 			});
 		}
-		
 	});
-
 </script>
 
 </body>

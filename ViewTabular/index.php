@@ -10,10 +10,12 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" type="text/css" href="../css/font-awesome.min.css">
 
-    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-    <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css'>
-    <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css'>
+    <link rel='stylesheet prefetch' href='../css/bootstrap.min.css'>
+    <link rel='stylesheet prefetch' href='../css/bootstrap-theme.min.css'>
     <link rel='stylesheet prefetch' href='http://cdn.datatables.net/1.10.4/css/jquery.dataTables.css'>
+
+    <!-- js -->
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 	<script src='https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js'></script>
 	<script src="https://cdn.datatables.net/buttons/1.2.1/js/dataTables.buttons.min.js"></script>
 	<script src="https://cdn.datatables.net/buttons/1.2.1/js/buttons.flash.min.js"></script>
@@ -21,7 +23,9 @@
 	<script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
 	<script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
 	<script src="https://cdn.datatables.net/buttons/1.2.1/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.2.1/js/buttons.print.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/1.2.1/js/buttons.print.min.js"></script>
+
+
 <style type="text/css">
   #Technical:hover{
     background: #0000ff;

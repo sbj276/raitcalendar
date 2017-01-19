@@ -24,13 +24,13 @@ $events = $req->fetchAll();
     <title>View Events</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
 	
 	<!-- FullCalendar -->
-	<link href='css/fullcalendar.css' rel='stylesheet' />
+	<link href='../css/fullcalendar.css' rel='stylesheet' />
 
     <link rel="stylesheet" type="text/css" href="../css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="css/chatbubbles.css">
+    <link rel="stylesheet" type="text/css" href="../css/chatbubbles.css">
 
     <!-- Custom CSS -->
     <style>

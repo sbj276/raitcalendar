@@ -35,8 +35,8 @@ $events = $req->fetchAll();
     <link href="css/bootstrap.min.css" rel="stylesheet">
 	
 	<!-- FullCalendar -->
-	<link href='css/fullcalendar.css' rel='stylesheet' />
-    <link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.css">
+	<link href='../css/fullcalendar.css' rel='stylesheet' />
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap-datetimepicker.css">
     <link rel="stylesheet" type="text/css" href="../css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="../css/bootstrap-select.min.css">
     <!-- Custom CSS -->
@@ -196,13 +196,14 @@ tr{
 		<div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 		  <div class="modal-dialog" role="document">
 			<div class="modal-content">
-			<form class="form" method="POST" action="editEventTitle.php">
+			<form class="form" method="POST" action="updateEvent.php">
 			  <div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title" id="myModalLabel">Edit Event</h4>
 			  </div>
 			  <div class="modal-body">
 				  <input type="text" name="event_id" id="event_id"/>
+				  <input type="text" name="branch" id="branch1"/>
 				  <div class="form-group">
 						<label for="event_name" class="col-sm-8 control-label">Event Name:</label>
 						<input type="text" name="event_name" class="form-control" id="event_name" placeholder="Event Name" required>
@@ -267,15 +268,15 @@ tr{
     <!-- /.container -->
 
     <!-- jQuery Version 1.11.1 -->
-    <script src="js/jquery.js"></script>
+    <script src="../js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
 	
 	<!-- FullCalendar -->
-	<script src='js/moment.min.js'></script>
-    <script src="js/bootstrap-datetimepicker.min.js"></script>
-	<script src='js/fullcalendar.min.js'></script>
+	<script src='../js/moment.min.js'></script>
+    <script src="../js/bootstrap-datetimepicker.min.js"></script>
+	<script src='../js/fullcalendar.min.js'></script>
 	<script src='../js/bootstrap-select.min.js'></script>
 	
 	<script>
@@ -283,6 +284,7 @@ tr{
 	$(document).ready(function() {
 		
 		$("#event_id").hide();
+		$("#branch1").hide();
 		$('.selectpicker').selectpicker({
     		iconBase: 'fa',
     		tickIcon: 'fa-check'
@@ -310,6 +312,7 @@ tr{
 				element.bind('dblclick', function() {
 					// alert("dblclick");
 					$('#ModalEdit #event_id').val(event.id);
+					$('#ModalEdit #branch').val(event.branch);
 					$('#ModalEdit #event_name').val(event.title);
 					$('#ModalEdit #event_desc').val(event.description);
 					$('#ModalEdit #event_location').val(event.location);

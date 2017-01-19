@@ -6,12 +6,7 @@ if(!isset($_SESSION['login']))
 	{
 	header('Location:../Login');
 	}
-	
-	
-	
-	
-	
-	
+
 	//start
 require_once('bdd.php');
 

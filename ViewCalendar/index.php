@@ -79,7 +79,7 @@ tr{
 
 <body>
     <header style="display:block;position:relative;background:#9B1B30;height:60px;width:100%">
-        <img src="images/headerlogo.png" style="position:absolute;height:100%;width:auto;margin-left:10%">
+        <img src="../images/headerlogo.png" style="position:absolute;height:100%;width:auto;margin-left:10%">
 
         <div style="color: #fff;float: right;margin-right: 4%;font-size: 30px;margin-left: 7px;margin-top: 9px;"><a href="../ViewTabular/" style="color:#fff"><i class="fa fa-table" aria-hidden="true" title="Toggle to tabular view"></i></a></div>
         <div id="logged-in-user" style="color:#fff;float:right;margin-right: 1%;font-size:20px;margin-top:15px;"><?php
@@ -178,15 +178,15 @@ tr{
     <!-- /.container -->
 
     <!-- jQuery Version 1.11.1 -->
-    <script src="js/jquery.js"></script>
+    <script src="../js/jquery.js"></script>
     <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
 	
 	<!-- FullCalendar -->
-	<script src='js/moment.min.js'></script>
-	<script src='js/fullcalendar.min.js'></script>
+	<script src='../js/moment.min.js'></script>
+	<script src='../js/fullcalendar.min.js'></script>
 	
 	<script>
 

@@ -32,7 +32,7 @@ $events = $req->fetchAll();
     <title>Edit Events</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
 	
 	<!-- FullCalendar -->
 	<link href='../css/fullcalendar.css' rel='stylesheet' />
@@ -86,7 +86,7 @@ tr{
 
 <body>
     <header style="display:block;position:relative;background:#9B1B30;height:60px;width:100%">
-        <img src="images/headerlogo.png" style="position:absolute;height:100%;width:auto;margin-left:10%">
+        <img src="../images/headerlogo.png" style="position:absolute;height:100%;width:auto;margin-left:10%">
 
         <div style="color: #fff;float: right;margin-right: 4%;font-size: 30px;margin-left: 7px;margin-top: 9px;"><a href="../EditModeForm/" style="color:#fff"><i class="fa fa-table" aria-hidden="true" title="Toggle to form view"></i></a></div>
         <div id="logged-in-user" style="color:#fff;float:right;    margin-right: 1%;font-size:20px;margin-top:15px;">Welcome,<?php echo $_SESSION['login']; ?></div>

@@ -21,5 +21,13 @@ if(mysqli_query($conn,"UPDATE `cal_events_new` SET `event_name`='$name', `event_
 	echo mysqli_error($conn);
 }
 
+if(isset($_POST['delete'])){
+	if(mysqli_query($conn,"DELETE FROM `cal_events_new` WHERE `event_id`='$id'")){
+		echo '<br>updated';
+	}else{
+		echo mysqli_error($conn);
+	}	
+}
+
 // header('Location: '.$_SERVER['HTTP_REFERER']);	
 ?>

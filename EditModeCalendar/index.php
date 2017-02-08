@@ -203,7 +203,6 @@ tr{
 			  </div>
 			  <div class="modal-body">
 				  <input type="text" name="event_id" id="event_id"/>
-				  <input type="text" name="branch" id="branch1"/>
 				  <div class="form-group">
 						<label for="event_name" class="col-sm-8 control-label">Event Name:</label>
 						<input type="text" name="event_name" class="form-control" id="event_name" placeholder="Event Name" required>

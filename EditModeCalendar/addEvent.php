@@ -8,6 +8,12 @@ $name = $_POST['event_name'];
 $start = $_POST['event_start'];
 $end = $_POST['event_end'];
 $description = $_POST['event_desc'];
+//modify event description
+	while(strpos($description, "\n")) {
+		$description = substr($description, 0, strpos($description, "\n")-1).'<br/>'.substr($description, strpos($description, "\n")+1);
+	}
+//
+
 $location = $_POST['event_location'];
 
 if(isset($_POST['event_category'])){

@@ -421,7 +421,7 @@ $events = $req->fetchAll();
 					if(rep == 'OK'){
 						alert('Saved');
 					}else{
-						alert('Could not be saved. try again.'); 
+						alert(rep); 
 					}
 				}
 			});

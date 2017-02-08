@@ -41,38 +41,31 @@ $events = $req->fetchAll();
     <link rel="stylesheet" type="text/css" href="../css/bootstrap-select.min.css">
     <!-- Custom CSS -->
     <style>
-	#calendar {
-		width: 80%;
-	}
 	.col-centered{
 		float: none;
 		margin: 0 auto;
 	}
-    </style>
-	    <style>
+
 	#calendar {
-		width: 80%;float:left;
+		width: 100%;float:left;
 		border-radius: 50px;
-		margin-top:50px;
+		font-size: 150%;
 	}
-#colorcor {
-    background-color: white;
-    float: right;
-    width: 19%;
-    height: 500px;
-    margin-left: 5px;
-    margin-top: 101px;
-    padding-left: 14px;
-}
+	#colorcor {
+	    background-color: white;
+	    float: right;
+	    width: 19%;
+	    height: 500px;
+	    margin-left: 5px;
+	    margin-top: 101px;
+	    padding-left: 14px;
+	}
 	#lab  {
-		
 		float:left;
-		
-    
-    
-tr{
-	padding:1px!important;
-}
+	}
+	tr{
+		padding:1px!important;
+	}
     </style>
 	
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

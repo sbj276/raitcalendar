@@ -225,7 +225,7 @@ $events = $req->fetchAll();
 
 					<div class="form-group">
 						<label for="event_desc" class="col-sm-8 control-label">Description</label>
-						<textarea type="text" name="event_desc" rows="5" class="form-control" id="event_desc" required></textarea>
+						<textarea name="event_desc" rows="5" class="form-control" id="event_desc" required></textarea>
 				  	</div>
 				  	<div class="form-group">
 						<label for="event_location" class="col-sm-8 control-label">Location</label>
@@ -277,6 +277,8 @@ $events = $req->fetchAll();
 		
 		$("#event_id").hide();
 		$("#branch1").hide();
+
+
 		$('.selectpicker').selectpicker({
     		iconBase: 'fa',
     		tickIcon: 'fa-check'
@@ -407,7 +409,7 @@ $events = $req->fetchAll();
 			}
 			
 			id =  event.id;
-			
+
 			Event = [];
 			Event[0] = id;
 			Event[1] = start;

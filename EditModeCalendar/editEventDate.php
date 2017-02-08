@@ -2,7 +2,7 @@
 
 	
 // Connexion à la base de données
-require_once('bdd.php');
+require_once('../connect.php');
 
 if (isset($_POST['Event'][0]) && isset($_POST['Event'][1]) && isset($_POST['Event'][2])){
 	
@@ -11,25 +11,16 @@ if (isset($_POST['Event'][0]) && isset($_POST['Event'][1]) && isset($_POST['Even
 	$start = $_POST['Event'][1];
 	$end = $_POST['Event'][2];
 
-	$sql = "UPDATE `cal_events_new` SET  start_date = '$start', end_date = '$end' WHERE event_id = $id ";
+	$sql = "UPDATE `cal_events_new` SET start_date = '$start', end_date = '$end' WHERE event_id LIKE '$id' ";
 
 	
-	$query = $bdd->prepare( $sql );
-	if ($query == false) {
-		print_r($bdd->errorInfo());
-		die ('Erreur prepare');
-	}
-	$sth = $query->execute();
-	if ($sth == false) {
-		print_r($query->errorInfo());
-		die ('Erreur execute');
+	if(mysqli_query($conn,$sql)){
+		echo '<br>updated';
 	}else{
-		die ('OK');
-	}
+		echo mysqli_error($conn);
+	}	
 
 }
 
-// header('Location: '.$_SERVER['HTTP_REFERER']);
-
-	
+// header('Location: '.$_SERVER['HTTP_REFERER']); 
 ?>

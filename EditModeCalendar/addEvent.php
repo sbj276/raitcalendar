@@ -16,9 +16,12 @@ if(isset($_POST['event_category'])){
 	$category = "NULL";
 }
 
+//generate a hash for this time and use it as id
+$id = sha1(date('Y-m-d H:i:s'));
+
 if(isset($_POST['branch'])){
 	foreach ($_POST['branch'] as $selectedOption){
-	    if(mysqli_query($conn,"INSERT INTO `cal_events_new`(`event_name`, `start_date`, `end_date`, `event_desc`, `location`, `web_user`, `branch`, `category`) VALUES ('$name','$start','$end','$description','$location','$logged_in_user','$selectedOption','$category')")){
+	    if(mysqli_query($conn,"INSERT INTO `cal_events_new`(`event_id`,`event_name`, `start_date`, `end_date`, `event_desc`, `location`, `web_user`, `branch`, `category`) VALUES ('$id','$name','$start','$end','$description','$location','$logged_in_user','$selectedOption','$category')")){
 			echo '<br>inserted';
 		}
 		else{
@@ -26,7 +29,7 @@ if(isset($_POST['branch'])){
 		}
 	}
 }else{
-	if(mysqli_query($conn,"INSERT INTO `cal_events_new`(`event_name`, `start_date`, `end_date`, `event_desc`, `location`, `web_user`, `branch`, `category`) VALUES ('$name','$start','$end','$description','$location','$logged_in_user','NULL','$category')")){
+	if(mysqli_query($conn,"INSERT INTO `cal_events_new`(`event_id`,`event_name`, `start_date`, `end_date`, `event_desc`, `location`, `web_user`, `branch`, `category`) VALUES ('$id',$name','$start','$end','$description','$location','$logged_in_user','NULL','$category')")){
 			echo '<br>inserted';
 		}
 		else{
@@ -37,5 +40,5 @@ if(isset($_POST['branch'])){
 
 
 
-// header('Location: '.$_SERVER['HTTP_REFERER']);	
+header('Location: '.$_SERVER['HTTP_REFERER']);	
 ?>

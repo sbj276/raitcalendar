@@ -26,7 +26,15 @@
   <script src="https://cdn.datatables.net/buttons/1.2.1/js/buttons.print.min.js"></script>
 
 
-<style type="text/css">
+<style type="text/css">  
+.LabelB{
+font-family: OpenSans;
+  width:8%;
+  border-radius: 8px;
+  border-style: groove;
+  padding:3px;
+  transition: all ease 0.3s;	
+}
   #Technical:hover{
     background: #0000ff;
   }
@@ -117,19 +125,32 @@
 		<hr>
 
 		<div class="row"  style="margin-top:1%">
-			<div class="btn-group col-md-12">
-			  <button type="button" class="btn btn-default col-md-1 category" id="Technical">Technical</i></button>
-			  <button type="button" class="btn btn-default col-md-1 category" id="Placement">Placement</button>
-			  <button type="button" class="btn btn-default col-md-1 category" id="Examination">Examination</button>
-			  <button type="button" class="btn btn-default col-md-1 category" id="Administration">Administration</button>
-			  <button type="button" class="btn btn-default col-md-1 category" id="Alumini">Alumini</button>
-			  <button type="button" class="btn btn-default col-md-1 category" id="Faculty">Faculty</button>
-			  <button type="button" class="btn btn-default col-md-1 category" id="Fest">Fest</button>
-			  <button type="button" class="btn btn-default col-md-1 category" id="Sports">Sports</button>
-			  <button type="button" class="btn btn-default col-md-1 category" id="Committee">Committee</button>
-			  <button type="button" class="btn btn-default col-md-1 category" id="Holiday">Holiday</button>
-			  <button type="button" class="btn btn-default col-md-1 category" id="Workshop">Workshops</button>
-			  <button type="button" class="btn btn-default col-md-1 category" id="Others">Others</button>
+			<div class="btn-group col-md-12"> 
+			
+ <input type="checkbox"   class='category' id="technical" style='display:none;' name='technical'><label for='technical' class=" col-md-1 LabelB" id='Technical'>Technical</label>
+ 
+  <input type="checkbox"  class='category' id="Examination" style='display:none;' name='Examination'><label for='Examination' class=" col-md-1 LabelB" id='Examination'>Examination</label>
+  
+  <input type="checkbox"  class='category' id="Placement" style='display:none;'><label for='Placement'class=" col-md-1 LabelB" id='Placement'>Placement</label>
+  
+  <input type="checkbox"   class='category' id="Administration" style='display:none; '><label for='Administration' style='width:10%;' class=" col-md-1 LabelB" id='Administration'>Administration</label>
+  
+  <input type="checkbox"   class='category' id="Alumini" style='display:none;'>	<label for='Alumini' class=" col-md-1 LabelB" id='Alumini'>Alumini</label>
+  
+  <input type="checkbox"  class='category' id="Faculty" style='display:none;' ><label for='Faculty' class=" col-md-1 LabelB" id='Faculty'>Faculty</label>
+  
+  <input type="checkbox"  class='category'id="Fest" style='display:none;'><label for='Fest' class=" col-md-1 LabelB" id='Fest'>Fest</label>
+  
+  <input type="checkbox"  class='category'id="Sports" style='display:none;'><label for='Sports'class=" col-md-1 LabelB" id='Sports'>Sports</label>
+  
+  <input type="checkbox"  class='category'id="Commitee" style='display:none;'><label for='Committee' class=" col-md-1 LabelB"id='Committee'>Committee</label>
+  
+  <input type="checkbox"  class='category' id="Workshop" style='display:none;'><label for='Workshop'class=" col-md-1 LabelB" id='Workshop'>Workshop</label>
+  
+  <input type="checkbox"  class='category' id="Others" style='display:none;'><label for='Others' class=" col-md-1 LabelB" id='Others'>Others</label>
+  
+  <input type="checkbox"  class='category' id="Holiday" style='display:none;'><label for='Holiday' class=" col-md-1 LabelB" id='Holiday'>Holiday</label>
+ 
 			</div>
 		</div>
 		<hr>	
@@ -165,10 +186,10 @@
     <script src="../js/bootstrap.min.js"></script>
     <!--import datatables-->
     <!--js to import all the data-->
-    <script>
-
+   <script>
     // $("#timestamp").hide();
-    var table,category="",branch="",timerange="";
+	
+    var table,branch="",category="",favorite = [];;
     $(document).ready(function() {
     	//the format of the description
 		  // function format (data) {
@@ -177,16 +198,19 @@
   		
   		//intialising datatables
 		    table = $('.datatables').DataTable({
-		    // Column definitions
 		    ajax: 'return.php',
+		    // Column definitions
+			 
 		    columns : [
 		      {data : 'event_name'},
 		      {data : 'start_date'},
 		      {data : 'end_date'},
           {data : 'event_desc'},
 		      {data : 'location'}
-		    ],
-		    
+		    ],success: function(response) {
+				$('#result').html(response);
+				},
+		     
 		    pagingType : 'full_numbers',
 		    lengthChange: true,
 		    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
@@ -195,6 +219,7 @@
         	buttons: [
             	'copy', 'csv', 'excel', 'pdf', 'print'
         	]
+					
 
 		    });
 
@@ -210,8 +235,10 @@
 		      			{data : 'end_date'},
                 {data : 'event_desc'},
 		      			{data : 'location'}
-		    		],
-		    
+		    		],success: function(response) {
+				$('#result').html(response);
+				},
+			
 		    pagingType : 'full_numbers',
         lengthChange: true,
         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
@@ -241,7 +268,7 @@
   		  });
 	 
 
-    //to change the dropdown name as selected
+/*     //to change the dropdown name as selected
       	$(".dropdown-menu li a").click(function(){
       		$(".dropdown-toggle").html($(this).text()+"<span class=caret></span>");
       		$(".dropdown-toggle").val($(this).text());
@@ -249,21 +276,53 @@
           timerange = $(".dropdown-toggle").val();
           $(".status").html("<b>Branch: </b>"+branch+"   <b>Category: </b>"+ category+"   <b>Timerange: </b>"+ timerange);
      		});
-
+ */
    	//to show that a particular branch is selected
      		$(".branch").click(function(){
      			branch = $(this).attr('id');
-          // alert(branch);
-          $(".status").html("<b>Branch: </b>"+branch+"   <b>Category: </b>"+ category+"   <b>Timerange: </b>"+ timerange);
-     			reInitDatatable('return.php?branch='+branch+'&category='+category+'&timerange='+timerange,table);
+				/* $.each($(".category:checked"), function(){            
+				favorite.push($(this).attr('id'));
+				}); */
+				$(".status").html("<b>Branch: </b>"+branch+" <b>Category: </b>"+ category);
+     			reInitDatatable('return.php?branch='+branch+'&category='+favorite,table);
+				
      		});
+		     $(".category").click(function(){
+				
+					  if($(this).prop("checked") == true){
+						  favorite.push($(this).attr('id'));   
+						
+						$( '.checkboxes' ).on( 'click', 'input[type="checkbox"]', function () {
+						$( this ).next('label').css('background-color','red');
+						});
+						  
+						//category = this).attr('id');
+							$(".status").html("<b>category: </b>"+favorite+"<b>branch:</b>"+branch);
+							reInitDatatable('return.php?branch='+branch+'&category='+favorite,table);
 
-   	//to show that a particular category is selected
-     		$(".category").click(function(){
-     			category = $(this).attr('id');
-          $(".status").html("<b>Branch: </b>"+branch+"   <b>Category: </b>"+ category+"   <b>Timerange: </b>"+ timerange);
-     			reInitDatatable('return.php?branch='+branch+'&category='+category+'&timerange='+timerange,table);
+					  }
+					  if($(this).prop("checked") == false){
+							category = $(this).attr('id');
+							 favorite.splice($.inArray(category, favorite),1);
+							 $(".status").html("<b>category: </b>"+favorite+"<b>branch:</b>"+branch);
+						  reInitDatatable('return.php?branch='+branch+'&category='+favorite,table);
+					  }
      		});
+			
+			/* $(".LabelB").click(function(){
+				var i=0;
+				var text=$(this).text();
+				if(text=='Technical'){
+					$(this).css('background-color','red');
+					
+				}
+				else{
+					$(this).css('background-color','White');
+					}
+				
+			}); */
+
+
   });
    	</script>
   </body>

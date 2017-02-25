@@ -127,7 +127,7 @@ font-family: OpenSans;
 		<div class="row"  style="margin-top:1%">
 			<div class="btn-group col-md-12"> 
 			
- <input type="checkbox"   class='category' id="technical" style='display:none;' name='technical'><label for='technical' class=" col-md-1 LabelB" id='Technical'>Technical</label>
+ <input type="checkbox"   class='category' id="technical" style='display:none;' name='technical'><label for='technical' class=" col-md-1 LabelB" id='technical'>Technical</label>
  
   <input type="checkbox"  class='category' id="Examination" style='display:none;' name='Examination'><label for='Examination' class=" col-md-1 LabelB" id='Examination'>Examination</label>
   
@@ -189,13 +189,30 @@ font-family: OpenSans;
    <script>
     // $("#timestamp").hide();
 	
-    var table,branch="",category="",favorite = [];;
+    var table,branch="",category="",favorite = [],selected=[];
     $(document).ready(function() {
     	//the format of the description
 		  // function format (data) {
 		  //     return '<div class="details-container" style="padding:5% 5% 5% 5%">'+row.data().event_desc+'</div>';
 		  // };
-  		
+  		$(".LabelB").click(function(){
+        if(-1==$.inArray($(this).attr('id'),selected,0)){
+          selected.push($(this).attr('id'));   
+         console.log("pushed");
+         $(this).width(60);
+         //$(this).css("background-color",($(this).css("background-color")));
+         $(this).css("color","red");
+         $(this).css("font-size",12);
+          
+        }else{
+         console.log("not pushed");
+         $(this).width(80);
+         selected.splice($.inArray($(this).attr('id'), selected),1);
+         $(this).css("color","black");
+         $(this).css("font-size",14);
+       }
+
+      });
   		//intialising datatables
 		    table = $('.datatables').DataTable({
 		    ajax: 'return.php',

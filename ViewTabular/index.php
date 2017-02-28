@@ -285,15 +285,16 @@ font-family: OpenSans;
   		  });
 	 
 
-/*     //to change the dropdown name as selected
+    //to change the dropdown name as selected
       	$(".dropdown-menu li a").click(function(){
       		$(".dropdown-toggle").html($(this).text()+"<span class=caret></span>");
       		$(".dropdown-toggle").val($(this).text());
       		$(".dropdown-toggle").css({'background':'#aaa','color':'#fff'});
           timerange = $(".dropdown-toggle").val();
           $(".status").html("<b>Branch: </b>"+branch+"   <b>Category: </b>"+ category+"   <b>Timerange: </b>"+ timerange);
+          reInitDatatable('return.php?timerange='+timerange,table);
      		});
- */
+ 
    	//to show that a particular branch is selected
      		$(".branch").click(function(){
      			branch = $(this).attr('id');

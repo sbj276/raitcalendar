@@ -62,7 +62,11 @@ if(isset($_REQUEST['timerange'])){
 }
 else
 	$timerange="";
-if($branch!="" && $category!=""){
+
+if($branch!="" && $category!="" && $timerange!=""){
+	$sql="SELECT *,DATE(start_date) AS start_date,DATE(end_date) AS end_date FROM cal_events WHERE branch='$branch' AND category='$category' AND $timerange_query_addition";
+}
+else if($branch!="" && $category!=""){
 	 //$sql="SELECT *,DATE(start_date) AS start_date,DATE(end_date) AS end_date FROM cal_events_new WHERE branch='$branch' ";
 	 $arr1=explode(',',$category);
 	if(sizeof($arr1)==1){

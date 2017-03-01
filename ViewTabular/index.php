@@ -292,7 +292,7 @@ font-family: OpenSans;
       		$(".dropdown-toggle").css({'background':'#aaa','color':'#fff'});
           timerange = $(".dropdown-toggle").val();
           $(".status").html("<b>Branch: </b>"+branch+"   <b>Category: </b>"+ category+"   <b>Timerange: </b>"+ timerange);
-          reInitDatatable('return.php?timerange='+timerange,table);
+          //reInitDatatable('return.php?timerange='+timerange,table);
      		});
  
    	//to show that a particular branch is selected

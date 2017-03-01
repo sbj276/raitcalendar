@@ -189,7 +189,7 @@ font-family: OpenSans;
    <script>
     // $("#timestamp").hide();
 	
-    var table,branch="",category="",favorite = [],selected=[];
+    var table,branch="",category="",favorite = [],selected=[],timerange="";
     $(document).ready(function() {
     	//the format of the description
 		  // function format (data) {
@@ -301,8 +301,9 @@ font-family: OpenSans;
 				/* $.each($(".category:checked"), function(){            
 				favorite.push($(this).attr('id'));
 				}); */
-				$(".status").html("<b>Branch: </b>"+branch+" <b>Category: </b>"+ category);
+				$(".status").html("<b>Branch: </b>"+branch+" <b>Category: </b>"+ category+"Timerange"+timerange);
      			reInitDatatable('return.php?branch='+branch+'&category='+favorite,table);
+          
 				
      		});
 		     $(".category").click(function(){
@@ -315,7 +316,7 @@ font-family: OpenSans;
 						});
 						  
 						//category = this).attr('id');
-							$(".status").html("<b>category: </b>"+favorite+"<b>branch:</b>"+branch);
+							$(".status").html("<b>category: </b>"+favorite+"<b>branch:</b>"+branch+"timerange:"+timerange);
 							reInitDatatable('return.php?branch='+branch+'&category='+favorite,table);
 
 					  }

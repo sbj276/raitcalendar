@@ -63,10 +63,8 @@ if(isset($_REQUEST['timerange'])){
 else
 	$timerange="";
 
-if($branch!="" && $category!="" && $timerange!=""){
-	$sql="SELECT *,DATE(start_date) AS start_date,DATE(end_date) AS end_date FROM cal_events WHERE branch='$branch' AND category='$category' AND $timerange_query_addition";
-}
-else if($branch!="" && $category!=""){
+
+if($branch!="" && $category!=""){
 	 //$sql="SELECT *,DATE(start_date) AS start_date,DATE(end_date) AS end_date FROM cal_events_new WHERE branch='$branch' ";
 	 $arr1=explode(',',$category);
 	if(sizeof($arr1)==1){
@@ -78,9 +76,6 @@ else if($branch!="" && $category!=""){
 		$sql=str_replace('category',"category=$f1",$sql1);
 	}
 	 
-}
-else if($category!="" && $timerange!=""){
-	$sql="SELECT *,DATE(start_date) AS start_date,DATE(end_date) AS end_date FROM cal_events_new WHERE category='$category' AND $timerange_query_addition";
 }
 else if($branch!=""){
 	$sql="SELECT *,DATE(start_date) AS start_date,DATE(end_date) AS end_date FROM cal_events_new WHERE branch='$branch'";
@@ -97,11 +92,8 @@ else if($category!=""){
 	}
 
 }
-else if($timerange!=""){
-	$sql="SELECT *,DATE(start_date) AS start_date,DATE(end_date) AS end_date FROM cal_events_new WHERE $timerange_query_addition";
-}
 else{
-	$sql='select * from cal_events_new where 1';
+	$sql="select * from  cal_events_new where 1";
 }
 
 $return["aaData"] = array();
@@ -115,6 +107,7 @@ while($row=mysqli_fetch_array($result))
 	 array_push($return["aaData"],array('event_id'=>intval($row['event_id']),'event_name'=>$row['event_name'],'start_date'=>$row['start_date'],'end_date'=>$row['end_date'],'event_desc'=>$row['event_desc'],'location'=>$row['location']));
 }
 echo json_encode($return);
+
 /* echo'';
 $sql="SELECT *,DATE(start_date) AS start_date,DATE(end_date) AS end_date FROM cal_events_new WHERE branch='IT'";
 if($result=mysqli_query($conn,$sql))

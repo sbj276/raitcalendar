@@ -91,7 +91,7 @@ font-family: OpenSans;
 
 	<div class="container">
 		<div class="row" style="margin-top:2%">
-			<div class="dropdown col-md-2 col-md-push-10" id="timestamp">	
+		<!--	<div class="dropdown col-md-2 col-md-push-10" id="timestamp">	
 				<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 								Select timestamp
 					<span class="caret"></span>
@@ -106,8 +106,8 @@ font-family: OpenSans;
 						<li><a href="#">Current_Month</a></li>
 						<li><a href="#">Next_Month</a></li>
 					</ul>
-			</div>
-			<div class="btn-group col-md-10 col-md-pull-2">
+			</div>-->
+			<div class="btn-group col-md-12 col-md-pull-0">
 			  <button type="button" class="btn btn-default col-md-1 branch" id="COMPUTER"><i class="fa fa-laptop" aria-hidden="true"> COMP </i></button>
         <button type="button" class="btn btn-default col-md-1 branch" id="EXTC"><i class="fa fa-signal" aria-hidden="true"></i> EXTC</button>
         <button type="button" class="btn btn-default col-md-1 branch" id="IT" ><i class="fa fa-globe" aria-hidden="true"></i> IT </button>
@@ -117,7 +117,7 @@ font-family: OpenSans;
         <button type="button" class="btn btn-default col-md-1 disabled">&nbsp;</button>
         <button type="button" class="btn btn-default col-md-1 disabled">&nbsp;</button>
         <button type="button" class="btn btn-default col-md-2 branch" id="">All Branches</button>
-        <button type="button" class="btn btn-default col-md-2 category" id="">All Categories</button>
+        <button type="button" class="btn btn-default col-md-2 category" id=" ">All Categories</button>
 
 			</div>
 		</div>
@@ -127,13 +127,13 @@ font-family: OpenSans;
 		<div class="row"  style="margin-top:1%">
 			<div class="btn-group col-md-12"> 
 			
- <input type="checkbox"   class='category' id="technical" style='display:none;' name='technical'><label for='technical' class=" col-md-1 LabelB" id='technical'>Technical</label>
+ <input type="checkbox"   class='category' id="technical" style='display:none;' name='technical'><label for='technical' class=" col-md-1 LabelB" id='Technical'>Technical</label>
  
   <input type="checkbox"  class='category' id="Examination" style='display:none;' name='Examination'><label for='Examination' class=" col-md-1 LabelB" id='Examination'>Examination</label>
   
   <input type="checkbox"  class='category' id="Placement" style='display:none;'><label for='Placement'class=" col-md-1 LabelB" id='Placement'>Placement</label>
   
-  <input type="checkbox"   class='category' id="Administration" style='display:none; '><label for='Administration' style='width:10%;' class=" col-md-1 LabelB" id='Administration'>Administration</label>
+  <input type="checkbox"   class='category' id="Administration" style='display:none; '><label for='Administration' style='width:11%;' class=" col-md-1 LabelB" id='Administration'>Administration</label>
   
   <input type="checkbox"   class='category' id="Alumini" style='display:none;'>	<label for='Alumini' class=" col-md-1 LabelB" id='Alumini'>Alumini</label>
   
@@ -195,22 +195,29 @@ font-family: OpenSans;
 		  // function format (data) {
 		  //     return '<div class="details-container" style="padding:5% 5% 5% 5%">'+row.data().event_desc+'</div>';
 		  // };
+    var color="";
+    var x="";
+
   		$(".LabelB").click(function(){
         if(-1==$.inArray($(this).attr('id'),selected,0)){
-          selected.push($(this).attr('id'));   
-         console.log("pushed");
-         $(this).width(60);
-         //$(this).css("background-color",($(this).css("background-color")));
-         $(this).css("color","red");
-         $(this).css("font-size",12);
-          
+          selected.push($(this).attr('id')); 
+            x = $(this).css('backgroundColor');  
+         //console.log($(this).css("background-color"));
+         $(this).width(87);
+         $(this).css({
+           "border-color":"#cc0000",
+         });
         }else{
          console.log("not pushed");
-         $(this).width(80);
+         $(this).width(90);
          selected.splice($.inArray($(this).attr('id'), selected),1);
-         $(this).css("color","black");
-         $(this).css("font-size",14);
-       }
+         //console.log(x);
+         //console.log("color"+color);
+         $(this).css({
+          "color":"black",
+          "border-color":"#d6d6c2",
+         });
+                }
 
       });
   		//intialising datatables
@@ -301,7 +308,7 @@ font-family: OpenSans;
 				/* $.each($(".category:checked"), function(){            
 				favorite.push($(this).attr('id'));
 				}); */
-				$(".status").html("<b>Branch: </b>"+branch+" <b>Category: </b>"+ category+"Timerange"+timerange);
+				$(".status").html("<b>Branch: </b>"+branch+" <b>Category: </b>"+ category);
      			reInitDatatable('return.php?branch='+branch+'&category='+favorite,table);
           
 				
@@ -316,7 +323,7 @@ font-family: OpenSans;
 						});
 						  
 						//category = this).attr('id');
-							$(".status").html("<b>category: </b>"+favorite+"<b>branch:</b>"+branch+"timerange:"+timerange);
+							$(".status").html("<b>category: </b>"+favorite+"<b>branch:</b>"+branch);
 							reInitDatatable('return.php?branch='+branch+'&category='+favorite,table);
 
 					  }

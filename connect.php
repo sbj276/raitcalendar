@@ -13,4 +13,6 @@ $content="";
 $conn = new mysqli($servername, $username, $password,$dbname);
 if(!$conn)
 	echo mysqli_error($conn);
+else
+	//echo "connected";
 ?>

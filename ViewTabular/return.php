@@ -8,16 +8,16 @@ if(isset($_REQUEST['branch'])){
 	$branch=$_REQUEST['branch'];
 }
 else{
-		$branch=1;
+		$branch="";
 }
 if(isset($_REQUEST['category'])){
 	$category=$_REQUEST['category'];
 	}	
 else
-	$category=1;
+	$category="";
 
 
-if($branch!=1 && $category!=1){
+if($branch!="" && $category!=""){
 	 //$sql="SELECT *,DATE(start_date) AS start_date,DATE(end_date) AS end_date FROM cal_events_new WHERE branch='$branch' ";
 	 $arr1=explode(',',$category);
 	if(sizeof($arr1)==1){
@@ -30,10 +30,10 @@ if($branch!=1 && $category!=1){
 	}
 	 
 }
-else if($branch!=1){
+else if($branch!=""){
 	$sql="SELECT *,DATE(start_date) AS start_date,DATE(end_date) AS end_date FROM cal_events_new WHERE branch='$branch'";
 }
-else if($category!=1){
+else if($category!=""){
 	$arr1=explode(',',$category);
 	if(sizeof($arr1)==1){
 		$sql="SELECT *,DATE(start_date) AS start_date,DATE(end_date) AS end_date FROM cal_events_new WHERE category='$arr1[0]'";
@@ -45,8 +45,8 @@ else if($category!=1){
 	}
 
 }
-else {
-	$sql="SELECT *,DATE(start_date) AS start_date,DATE(end_date) AS end_date FROM cal_events_new";
+else{
+	$sql="SELECT * FROM `cal_events_new` ;";
 }
 
 $return["aaData"] = array();

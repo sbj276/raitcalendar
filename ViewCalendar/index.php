@@ -207,7 +207,7 @@ tr{
 			selectHelper: false,
 			eventMouseover: function(event, jsEvent, view){
 				// $(".bubble").hide();
-				$(".bubble").find('p').html(event.title);
+				$(".bubble").find('p').html("mandeep"+event.title);	//TODO: add layoutfor description
 				$(".bubble").toggle("drop",{direction: "right"});
 			},
 			eventMouseout: function(event, jsEvent, view){

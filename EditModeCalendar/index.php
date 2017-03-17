@@ -41,38 +41,31 @@ $events = $req->fetchAll();
     <link rel="stylesheet" type="text/css" href="../css/bootstrap-select.min.css">
     <!-- Custom CSS -->
     <style>
-	#calendar {
-		width: 80%;
-	}
 	.col-centered{
 		float: none;
 		margin: 0 auto;
 	}
-    </style>
-	    <style>
+
 	#calendar {
-		width: 80%;float:left;
+		width: 100%;float:left;
 		border-radius: 50px;
-		margin-top:50px;
+		font-size: 150%;
 	}
-#colorcor {
-    background-color: white;
-    float: right;
-    width: 19%;
-    height: 500px;
-    margin-left: 5px;
-    margin-top: 101px;
-    padding-left: 14px;
-}
+	#colorcor {
+	    background-color: white;
+	    float: right;
+	    width: 19%;
+	    height: 500px;
+	    margin-left: 5px;
+	    margin-top: 101px;
+	    padding-left: 14px;
+	}
 	#lab  {
-		
 		float:left;
-		
-    
-    
-tr{
-	padding:1px!important;
-}
+	}
+	tr{
+		padding:1px!important;
+	}
     </style>
 	
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -203,7 +196,6 @@ tr{
 			  </div>
 			  <div class="modal-body">
 				  <input type="text" name="event_id" id="event_id"/>
-				  <input type="text" name="branch" id="branch1"/>
 				  <div class="form-group">
 						<label for="event_name" class="col-sm-8 control-label">Event Name:</label>
 						<input type="text" name="event_name" class="form-control" id="event_name" placeholder="Event Name" required>
@@ -233,7 +225,7 @@ tr{
 
 					<div class="form-group">
 						<label for="event_desc" class="col-sm-8 control-label">Description</label>
-						<textarea type="text" name="event_desc" rows="5" class="form-control" id="event_desc" required></textarea>
+						<textarea name="event_desc" rows="5" class="form-control" id="event_desc" required></textarea>
 				  	</div>
 				  	<div class="form-group">
 						<label for="event_location" class="col-sm-8 control-label">Location</label>
@@ -285,6 +277,8 @@ tr{
 		
 		$("#event_id").hide();
 		$("#branch1").hide();
+
+
 		$('.selectpicker').selectpicker({
     		iconBase: 'fa',
     		tickIcon: 'fa-check'
@@ -415,7 +409,7 @@ tr{
 			}
 			
 			id =  event.id;
-			
+
 			Event = [];
 			Event[0] = id;
 			Event[1] = start;
@@ -429,7 +423,7 @@ tr{
 					if(rep == 'OK'){
 						alert('Saved');
 					}else{
-						alert('Could not be saved. try again.'); 
+						alert(rep); 
 					}
 				}
 			});

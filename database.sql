@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.14
+-- version 4.5.1
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 18, 2017 at 04:38 AM
--- Server version: 5.6.17
--- PHP Version: 5.5.12
+-- Generation Time: Feb 07, 2017 at 06:23 PM
+-- Server version: 10.1.13-MariaDB
+-- PHP Version: 5.6.23
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `rait_calendar_sys`
@@ -26,10 +26,9 @@ SET time_zone = "+00:00";
 -- Table structure for table `admin`
 --
 
-CREATE TABLE IF NOT EXISTS `admin` (
+CREATE TABLE `admin` (
   `user` varchar(50) NOT NULL,
-  `pass` varchar(50) NOT NULL,
-  PRIMARY KEY (`user`)
+  `pass` varchar(50) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -45,8 +44,8 @@ INSERT INTO `admin` (`user`, `pass`) VALUES
 -- Table structure for table `cal_events_log`
 --
 
-CREATE TABLE IF NOT EXISTS `cal_events_log` (
-  `log_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `cal_events_log` (
+  `log_id` int(11) NOT NULL,
   `action` varchar(10) NOT NULL,
   `action_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `user` varchar(30) NOT NULL,
@@ -64,9 +63,8 @@ CREATE TABLE IF NOT EXISTS `cal_events_log` (
   `new_event_desc` varchar(500) DEFAULT NULL,
   `new_location` varchar(30) DEFAULT NULL,
   `remote_addr` varchar(45) DEFAULT NULL,
-  `http_x_forwarded_for` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`log_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=959 ;
+  `http_x_forwarded_for` varchar(45) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `cal_events_log`
@@ -1033,18 +1031,16 @@ INSERT INTO `cal_events_log` (`log_id`, `action`, `action_time`, `user`, `web_us
 --
 -- Table structure for table `cal_events_new`
 --
-
 CREATE TABLE IF NOT EXISTS `cal_events_new` (
   `event_id` varchar(512) NOT NULL,
   `event_name` varchar(100) NOT NULL,
-  `start_date` timestamp NOT NULL,
-  `end_date` timestamp NOT NULL,
+  `start_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `end_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `event_desc` longtext NOT NULL,
   `location` varchar(30) NOT NULL,
   `web_user` varchar(30) NOT NULL,
   `branch` varchar(20) NOT NULL DEFAULT 'COMPUTER',
-  `category` varchar(20) NOT NULL DEFAULT 'Technical',
-  PRIMARY KEY (`event_id`)
+  `category` varchar(20) NOT NULL DEFAULT 'Technical'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1052,193 +1048,192 @@ CREATE TABLE IF NOT EXISTS `cal_events_new` (
 --
 
 INSERT INTO `cal_events_new` (`event_id`, `event_name`, `start_date`, `end_date`, `event_desc`, `location`, `web_user`, `branch`, `category`) VALUES
-('00819bedf0933e1d682112566d00541fa0ebcdbfda053ee2399bb9d51da4ea809b9ca4252ed318b0046fc43ef66853ff2872e2fd894bf371f6683a15bdaaee74', 'Workshop', '2015-08-05 18:30:00', '2015-08-05 18:30:00', 'Workshop on Artificial Intelligence for BE students', '615', 'hodce5', '', ''),
-('00aae04a2ba47c629332328c83d8a90ef443da6199bd76fa3b188b8654de8376e469c44f6986dbf7853d2e532efb04127dba65d072a4bb3aea6c4129044f5b00', 'Demo of New Library Software (', '2015-10-06 18:30:00', '2015-10-06 18:30:00', 'For faculty and students.', '615', 'hoden', '', ''),
-('03d25c7071bce10d6b462d53854b969d9f61b982e3aee8771bdcca1ecb70495574e6929042f52e859ee9a253b58f776514180ff16e1338f5505e86c7ff328f72', 'Workshop on revised syllabus', '2012-09-10 18:30:00', '2012-09-10 18:30:00', 'Orientation Programme on the revised syllabus of Applied Chemistry I &amp; II on the behalf of University of Mumbai. This workshop was organized to get familiar with new pattern of curriculum. ', '615', 'hodes', '', ''),
-('06df05371981a237d0ed11472fae7c94c9ac0eff1d05413516710d17b10a4fb6f4517bda4a695f02d0a73dd4db543b4653df28f5d09dab86f92ffb9b86d01e25', 'NBA FILES - Meeting', '2015-08-23 18:30:00', '2015-08-23 18:30:00', 'All HODs &amp; Faculty handling NBA Files requested to attend', 'Principal Chambers', 'principal', '', ''),
-('075a601f4ce903c2ec41c8a17bc2205ea783b065eeb64f8d2c63fa76dfc1c5607f9517f482c057976fc3a0f161621218bfab855fb943e3bd073fd5637169f97e', 'Placement Mantra', '2015-09-30 18:30:00', '2015-10-02 18:30:00', 'Most popular event of Techmate giving experience of mock placements to the participants.', '515 and 520', 'csi', '', ''),
-('07a7d28cfe5e19ac5a34711be9c255075b92ca6251fe1393a638c2f9573f2f0e429eac69be26aabfdde78a3552703c2ef9f046d84b03a90eff981f26ecde3828', 'Training of Library staff for ', '2015-10-09 18:30:00', '2015-10-10 18:30:00', 'For Library and BVG (Tech) staff.', '511', 'hoden', '', ''),
-('0878a61b503dd5a9fe9ea3545d6d3bd41c3b50a47f3594cb8bbab3e47558d68fc8fcc409cd0831e91afc4e609ef9da84e0696c50354ad86b25f2609efef6a834', 'Remedial Classes', '2016-04-11 18:30:00', '2016-04-12 18:30:00', 'Remedial Classes for defaulter students', '5 Floor', 'faculty', '', ''),
-('0abcd0d5563dda2ab3a1d307bfa31b7f6dc1ba0709c076424ab6b1b4fc93c3c497794c5d1d404e1186b5c6dc820e7d16fb1cd65f0024b803c6dbda9613b7e895', 'Training of Library staff for ', '2015-10-09 18:30:00', '2015-10-10 18:30:00', 'For Library and BVG (Tech) staff.', '511', 'hoden', '', ''),
-('0dcff5a44cd72c19f94f7b72a5a7766ba5674afb9c13a9085a0ae03848d6a09c2bc0a0ca9660c0aa124b179ec6e84fb9af1121e7f0441705e052d6a6b2f87a7e', 'Guest Lecture by Padmashree Dr', '2015-08-18 18:30:00', '2015-08-18 18:30:00', 'Special lecture on biogas technology, waste management and life sciences  ', '615', 'hodes', '', ''),
-('0e50f4ce9142e33141fe8dfcb55e4e5def5f12630c2f4e0dbcfe4ed49894ec5e3dd76215bd3f92f3035fe710f1bcc1f676e7d37114406d97983cc1fd8105914d', 'Technical Talk', '2014-09-23 18:30:00', '2014-09-23 18:30:00', 'Seminar by Dr Zakir Taquvi Ex NASA', '615', 'hodes', '', ''),
-('1028363d99ff555a6b72cb48bcf75fbc019fcb98ebd52bcfd07be0a82347f1046192b020630a35798fa1b1a644ff86bf51b3d411eb540afbf427c679e693e736', 'Seminar on ED software', '2016-01-24 18:30:00', '2016-01-24 18:30:00', 'Seminar on how to use different softwares and AutoCAD to make student understand the concept easily', '212', 'hodfe', '', ''),
-('12dfe9621346c4db705d8c909e28a4509fab47649b4bcf7e100e4f9d97a5c1dcf19e03be8c74fd30244a0a1764aad06fae673cdd04c408070efab1b4395dd61b', 'Workshop on Webreneurship', '2015-08-07 18:30:00', '2015-08-08 18:30:00', 'Workshop on Webreneurship consisting of CMS, JOOMLA, DRUPAL Technologies and their business applications.', 'Lab No.: 513', 'csi', '', ''),
-('1393079f1b63bdc89b414e3e247925de89126637fd0fca24fa448a1c0b8fade5849d518fc3dc6b67645bced3da502b4a80327493ebc074de12b3b5b6546d5fc3', 'Cleanup drive by social wing', '2015-09-28 18:30:00', '2015-09-28 18:30:00', 'Beach Clean-up drive at Juhu Chowpati ', 'Juhu Choupati', 'hodce5', '', ''),
-('14f70566435cea4309176ad6a8aebb69ac8f99e9e211df66227522b5bb37c7a52e1f4de42543e4bb5346dbce23a636c7237a42e67ff4888befcc2167f7c2b451', 'Holiday', '2015-10-01 18:30:00', '2015-10-01 18:30:00', 'Gandhi Jayanti', 'Tech Fests in RAIT', 'hodce5', '', ''),
-('198dabf4bac21cf35cddb48db0f8b67c56b2bdf63767242aea7342fe68c0b9df8d37f3e47a134648e19f1640e158f2e527e636db122a9143307cf309efcb85d9', 'Holiday', '2015-08-17 18:30:00', '2015-08-17 18:30:00', 'Parsi New Year', 'with family', 'hodce5', '', ''),
-('1a78e5ac8e76a77ed8cb97d1789e53a679e8a8c33baa2192c38ad9e69781e3a8d514799916a21471bb441eae98228ecb86dde605dcb94f835e6243cfda66b5fc', 'Expert Lecture on Softwares to', '2016-01-24 18:30:00', '2016-01-24 18:30:00', 'Use of different softwares for teaching Engineering Drawing Subject of FE Sem II. These softwares will help to understand some concepts of ED more easily to students.', '212', 'hodfe', '', ''),
-('1aaf19918f3bf75bab12aa19241e2f23ef279ba6a6807430b13e99de6d8fe910b8c2c04aadfea748d6e5adf1c8720edead68b414c888349c11ce2f343efe5528', 'Work on behalf of University o', '2012-09-11 18:30:00', '2012-09-11 18:30:00', 'The workshop organized on behalf of University of Mumbai for development of standard question paper pattern and blueprint for the subject of Applied Chemistry I &amp; II. The Chairman of committee was Prof. Dr. S. D. Shete, Head of Department of Engineering Sciences, RAIT. He was nominated as chairman by University of Mumbai ', '615', 'hodes', '', ''),
-('1c29cfd5dad36585210f1e82dfbae8156d47177d7971d6e30ba7ffe730a8eb5e1c614ed1c0fea7212f69af11f01d5ee1b092886ab032143f7d087fe35f3cbdfd', 'Expert Session ', '2016-01-26 18:30:00', '2016-01-26 18:30:00', 'Expert Session by Siby sir for ME students', '615', 'faculty', '', ''),
-('1ccbff33e55627a50beca8cf5c89f77c3165dcb3218171308423f250f0bb0be9700bbfdd92d35dfa2e579110266a40194d707b50e7d27b6f09b81fbbf80231a3', 'Holiday', '2015-11-10 18:30:00', '2015-11-11 18:30:00', 'Deepawapli', 'with family', 'hodce5', '', ''),
-('1dd768de0eedf4afbcf003f6ef102cf170da661298f2498570e5b87723c53c84550eced35e3bfc4f0bbff10bd5ba7268cef8e8342820c277b886ad33fff10e13', 'Guest Lecture by Padmashree Dr', '2015-03-17 18:30:00', '2015-03-17 18:30:00', 'Padmashree Dr. Basu is Director of BARC, Mumbai delivered lecture on Nuclear Physics and research programs performed by BARC to the development of India', 'Auditorium', 'hodes', '', ''),
-('2208bacc005d7aab19bbe03d995f5ac696b8136c5469f662a7fe383458ecf17406fa0bce8064aa7d4df8d75b84010888d94aa07686ffac15750ad4e770d787f0', 'TCS Post Offer Connect Session', '2016-03-09 18:30:00', '2016-03-09 18:30:00', 'TCS Post Offer Connect Session10.00 to 11.30 &amp; TCS Prefinal Year Connect 11.30 to 12.30', 'Room 615', 'PA', '', ''),
-('227d4d9f49ed790afa1d7c3eb1f884e39a39ed59ea22d7af464a06a271a76d1d1e29fba3c48b2a2ce72d1c2b6242e0e0acf23120e096a7693ec8845c83ce3872', 'DDB expert Lecture', '2016-02-07 18:30:00', '2016-02-07 18:30:00', 'Distributed Databases Expert Lecture by S.S Kumar organized for Third year Students @10 am.a', '615', 'faculty', '', ''),
-('262123524bb4e19a1bd655221e7a75987266d6584c992ea57cb5f961a4e73a3a2ccede4d5e01944790c0c6dc2054778d149f3ab648491441ecdd03f51cdccd32', 'Term Test II', '2016-04-06 18:30:00', '2016-04-08 18:30:00', 'Term Test II of SEM II', 'RAIT', 'hodfe', '', ''),
-('26344e270809236abfb6f5ecff13d93d7ecb570a4d2003515abb3aed1c5af45f0fb064b17551d6570a60c14eeac482e54998565def6eaafc61399ba08398c929', 'medical check-up camp', '2015-10-16 18:30:00', '2015-10-16 18:30:00', 'Medical Check-up camp for Girija Orphanage children at Dr, D Y Patil Hospital by Social Wing', 'D Y Patil Hospital', 'hodce5', '', ''),
-('276b40244adbc95c3afec34f5b70844987240d46878b702cec73671ae8cdaeab33cb64f3a495504f9f52b04c0fe94d59685188b1ecb3d115a18e750023255c11', 'Expert Talk Series', '2015-09-30 18:30:00', '2015-09-30 18:30:00', 'Session-II Expert Talk on ''Cryptography - Then and Now'' by Dr. Dipan Ghosh, IIT Mumbai', '615', 'hod', '', ''),
-('28c3ca5e00955afe7303e7b1a10426054f77d4a586c57593ca2eb62ba417692e92beabd712b600bb84c72907d6ff73e6066329d45f1ac60c2d27c012fb5d99dd', '1 day workshop on Parallel and', '2016-02-03 18:30:00', '2016-01-03 18:30:00', 'Expert session on PDS and Hands on Lab for ME and BE students', '615', 'faculty', '', ''),
-('2b7e9caccc6e0ce596d8d56c524c88d4f451ebd89bc07dfb8880ae7b78e22f137cb48833871b5f0e3a65c75a1188873af63eee6a0ce4bbe8af387b1dd1019ba1', 'FE Orientation Program 2015', '2015-07-26 18:30:00', '2015-07-26 18:30:00', 'FE orientation programmed conducted very smoothly under guidance of Prof Dr. S. D. Shete Head of Engineering Science Department. He addressed new students about engineering in RAIT and guided them so that they can achieve success in their carrier ', 'Auditorium', 'hodes', '', ''),
-('31bca02094eb78126a517b206a88c73cfa9ec6f704c7030d18212cace820f025f00bf0ea68dbf3f3a5436ca63b53bf7bf80ad8d5de7d8359d0b7fed9dbc3ab99', 'djkhkf', '2017-01-10 18:30:00', '2017-01-13 18:30:00', 'kgj', 'hgjhg', 'mandeep', 'COMPUTER', 'Technical'),
-('3272ecce2e91dc1a531f530b36acd0bfeb3fa5e260e743a31f975e6b963db944f95a9260cba7d1dc87251a48f8f72807edb77f32271955b424ba7725281aacdf', 'Latex Training', '2016-02-04 18:30:00', '2016-02-04 18:30:00', 'Latex Training for BE students for Black book preparation.', '616lab', 'hod', '', ''),
-('33d7bcca06466d44b59bcb0683b2542acf08e476e2a7faffb3800f6a01b0c13a9049999a42f3dd159db0d85c7208cfc67f933c927cf48878058f0931e97ee1a3', 'First Defaulter''s List', '2016-02-08 18:30:00', '2016-01-08 18:30:00', 'Display of First Defaulter''s List', 'RAIT', 'hodfe', '', ''),
-('3414d7bfdde8010a3aad2b5f62144cd1daedd4d88db916955b3bc9c12a72c8b6907bf7c5f2645d68de9422d3a5c7aecdecdfe70355864164f4faafeb1a6efb5e', 'Workshop on Designing.', '2016-02-19 18:30:00', '2016-02-20 18:30:00', 'Creative designing workshop using Corel Draw-(Designing S/W), organised by CSI-RAIT.', 'Lab No.: 513', 'csi', '', ''),
-('36216009d61176703fc0416baadbdf3c42f91e283f06925fdf11a08edcbdb23f29e879c02cd26d3b1ecbd6dd1b43eb39d7d28a049e989eb1b8fd21a1a1fcb488', 'Demo of New Library Software (', '2015-10-06 18:30:00', '2015-10-06 18:30:00', 'For faculty and students.', '615', 'hoden', '', ''),
-('363709c1bed1003ef69e586cbc9d7284f191673e339601d9009a3e193235fbcf2b7a14846c2839af418ab52e0a89d67cb7b08f9bc15f688a85b491b8ff09971f', 'Workshop for question paper pa', '2012-09-11 18:30:00', '2012-09-11 18:30:00', 'The workshop organized on behalf of University of Mumbai for development of standard question paper pattern and blueprint for the subject of Applied Chemistry I &amp; II. The Chairman of committee (nominated by University of Mumbai) was Prof. Dr. S. D. Shete, Head of Department of Engineering Sciences, RAIT. ', '615', 'hodes', '', ''),
-('364ab93bac5c26bcc08811259b1b2832e0e0d38a0ebd46bd034d896ed26e1626ee2d5d434acf25f4e2553fa1e04c2fdf8f0b488930cfbed4d46eb6d273fc44ec', 'Training of Library staff for ', '2015-10-09 18:30:00', '2015-10-10 18:30:00', 'For Library and BVG (Tech) staff.', '511', 'hoden', '', ''),
-('3673a16a5983f5f5e04bf88d2c08e39631efe619726c5879d2d6907c00acb5d5689061b28cea52edab7c79dbfb450c961709c36c0d599b526c856e924f57e803', 'Workshop', '2015-09-15 18:30:00', '2015-09-15 18:30:00', 'Workshop on Network Security for BE students by Mr. Sachin Dedhiya', '513', 'hodce5', '', ''),
-('39ca7ce9ecc69f696bf7d20bb23dd1521b641f806cc7a6b724aaa6cdbffb3a023ff98ae73225156b2c6c9ceddbfc16f5453e8fa49fc10e5d96a3885546a46ef4', 'Tree Plantation Drive by Socia', '2015-08-21 18:30:00', '2015-08-21 18:30:00', '150 Tree plantation at Dronagiri  by 102 RAIT students', 'RAIT Glass door', 'hodce5', '', ''),
-('3bafbf08882a2d10133093a1b8433f50563b93c14acd05b79028eb1d12799027241450980651994501423a66c276ae26c43b739bc65c4e16b10c3af6c202aebb', 'Workshop on PCB Design', '2015-08-09 18:30:00', '2015-08-13 18:30:00', 'This is a free workshop for third and fourth year students.', 'Lab. 201 and 208', 'hoden', '', ''),
-('3c11e4f316c956a27655902dc1a19b925b8887d59eff791eea63edc8a05454ec594d5eb0f40ae151df87acd6e101761ecc5bb0d3b829bf3a85f5432493b22f37', 'Role of Instrumentation Engg. ', '2015-09-02 18:30:00', '2015-09-02 18:30:00', 'Dept. of Instrumentation Engg Role of Instrumentation Engg. in Corporat World', 'Room No 615', 'pa', '', ''),
-('3c9ad55147a7144f6067327c3b82ea70e7c5426add9ceea4d07dc2902239bf9e049b88625eb65d014a7718f79354608cab0921782c643f0208983fffa3582e40', 'Youth &amp; Communal Harmony- ', '2015-08-30 18:30:00', '2015-08-30 18:30:00', 'Youth &amp; Communal Harmony- School of Eduction', 'Room No 615', 'pa', '', ''),
-('3db72604d3e0e06358c929552a714b196f9ba96de2f970704f5ac1f1c8257c3024764dcd8e3df2c908a16bf6c598df235f0938adb5a03ffdcf52a07f34413063', 'Workshop on behalf of Universi', '2012-09-11 18:30:00', '2012-09-11 18:30:00', 'The workshop organized on behalf of University of Mumbai for development of standard question paper pattern and blueprint for the subject of Applied Chemistry I &amp; II. The Chairman of committee (nominated by University of Mumbai) was Prof. Dr. S. D. Shete, Head of Department of Engineering Sciences, RAIT. ', '615', 'hodes', '', ''),
-('40b244112641dd78dd4f93b6c9190dd46e0099194d5a44257b7efad6ef9ff4683da1eda0244448cb343aa688f5d3efd7314dafe580ac0bcbf115aeca9e8dc114', 'Faculty Meetting', '2015-08-30 18:30:00', '2015-08-30 18:30:00', 'NAAC work review', '112C', 'hodin', '', ''),
-('413f2ba78c7ed4ccefbe0cc4f51d3eb5cb15f13fec999de4884be925076746663aa5d34476a3df4a8729fd8eea01defa4f3f66e99bf943f4d84382d64bbbfa9e', 'Placement Preparation Talk', '2015-09-02 18:30:00', '2015-09-02 18:30:00', 'Placement Preparation Talk 3.00pm onwards', 'Room No 615', 'pa', '', ''),
-('4774b6224b8e98b96b658092bee32c88c41b1a8c80dcfd7e1fdffc7be59c5f72eae3aecac37b0c7398154489066b0b022240a68daf4432849fabe75768faaf5e', 'Short film ', '2015-10-01 18:30:00', '2015-10-01 18:30:00', 'Short film on a social issue by RAIT students to be put on UTube', 'RAIT Glass door', 'hodce5', '', ''),
-('4f6682d03aa25791eb3721b7b9a532ab0cb4603f76ef12f7423365c2b04d94a4fa9f57f699b7853f9ee441ca050e72810b587cbae7b48207c321a81d51fb359e', 'RAIT Placement', '2016-01-18 18:30:00', '2016-01-18 18:30:00', 'TCS post offer connect session 9.00am to 12.00 noon', 'Room No. 615', 'PA', '', ''),
-('4fee1955886d37f27f6106fdac098dc9a906773e2437060d39dd9757dd699edfdf5c61a2992a63b53f505273bec08517513617ec993e28058afd370d2c6ea5b9', 'Term Start', '2016-01-03 18:30:00', '2016-01-03 18:30:00', 'Start of Sem II', 'RAIT', 'hodfe', '', ''),
-('5305f867c631e8335813a103a4942a93037c3d3b1982eab342fb495047dcc79e13299ab65b5f4a34400f15af384eda2ed7144671e83996334c0669fc8377a130', 'Donation Drive by Social Wing', '2015-08-02 18:30:00', '2015-08-07 18:30:00', 'Collection of Books, Cloths, stationary, bags, fund from RAIT students and faculty and donted to Rabale Community center', 'RAIT Glass door', 'hodce5', '', ''),
-('5512c55503f276ce8d82a6fc9f94659f548d0fc45ff5fe3bb92e8f403e8cd346b4da55210384f41bd6b9ab398147349dfa97aa942b92851867a07e6d825421ff', 'Talk by Dr Basu', '2015-03-17 18:30:00', '2015-03-17 18:30:00', 'Padmashree Dr Basu (Director, BARC) delivered talk on development of Nuclear Physics in India and role of BARC in the development of India', 'Auditorium', 'hodes', '', ''),
-('58f27b548849f09e238b6bfe85336e874525db67f61d05695f1336f621114023dd0ee0e7bd468f0d1f39a11dd24b811acab0cbc2ba2b15a4a349699d4f2dfea3', 'Training of Library staff for ', '2015-10-09 18:30:00', '2015-10-10 18:30:00', 'For Library and BVG (Tech) staff.', '511', 'hoden', '', ''),
-('5994d55ad39cd61dc4a432d40bdb23e24cfae2b26f228947e568a997265adce8557f8367a2e4d68dec4b3cacfb9c2f8a1c0a2c9abb7050b5b7b34db1de196531', 'RAIT Placement', '2016-01-15 18:30:00', '2016-01-15 18:30:00', 'Placement drive of Muthshut.com ', 'Room No. 615', 'PA', '', ''),
-('5aadb45520dcd8726b2822a7a78bb53d794f557199d5d4abdedd2c55a4bd6ca73607605c558de3db80c8e86c3196484566163ed1327e82e8b6757d1932113cb8', 'Placement Preparation Talk', '2015-09-01 18:30:00', '2015-09-01 18:30:00', 'Placement Preparation Talk 3.00pm onwards.', 'Room No 615', 'pa', '', ''),
-('5e108bc2842d7716815913af0b3d5cb59563fa9116f71b9a17b37d6d445fe778a071b6abcf9b1c5bac2be00800c74e29d69774a66570908d5ea848dcc0abfa76', 'Tree Plantation Drive by Socia', '2015-08-21 18:30:00', '2015-08-21 18:30:00', '150 Tree plantation at Dronagiri  by 102 RAIT students', 'Uran', 'hodce5', '', ''),
-('5f28f24f5520230fd1e66ea6ac649e9f9637515f516b2ef74fc90622b60f165eafca8f34db8471b85b9b4a2cdf72f75099ae0eb8860c4f339252261778d406eb', 'D Y Patil Law College', '2016-02-05 18:30:00', '2016-02-05 18:30:00', 'Vidhi Mitra- 3.30pm to 6.30pm', 'Room No. 615', 'PA', '', ''),
-('5f3a799ba20c20a225f75d4fe2acab79912dfcd2f2b333bf062b37acbb6463388c344430d5ba1e9fd318d3ed8263074e999e2b2e811bc51c5e2dfea4e2f32e58', 'Workshop', '2015-09-15 18:30:00', '2015-09-15 18:30:00', 'Network Security workshop for UG and PG', '513', 'hodce5', '', ''),
-('60da519a6dd8da0c334f93c9fbd45a9db13ad3cd00acd57da39b2109d050ac0be7767f24dba050d8bd6b771e347f1df5e1610790af3c7aca5a23bcaa152d7377', 'Expert Lecture on Softwares to', '2016-01-24 18:30:00', '2016-01-24 18:30:00', 'Use of different softwares for teaching Engineering Drawing Subject of FE Sem II. These softwares will help to understand some concepts of ED more easily to students.', '212', 'hodfe', '', ''),
-('61d883f6f4e016fbe208ad09c4bd26e1f84523087603d8de2e10e73fa39a093c111d1c05b31623eb7cffb09b40d8af265a35407ddb9ebd73f5bd09093c1611dc', 'Term End', '2016-04-15 18:30:00', '2016-04-15 18:30:00', 'End of Even Sem', 'RAIT', 'faculty', '', ''),
-('62b09abf6d9f2846c1785343a14449c125b8955c2445171a8bd76af58c874fdf1552070145ead76e36da2869c740b98a5ee900d87403ece014ca438fbdabaac5', 'Workshop', '2015-11-19 18:30:00', '2015-11-20 18:30:00', '2-day Hands-on Session on COMSOL by Prof Sachin Umbarkar.', 'RAIT', 'hodce5', '', ''),
-('643c30f73a3017050b287794fc8c5bb9ab06b9ce38a1fc58df402a8b66ff58f69bf0a606ae17585352a0306f0e9752de8c5c064aed7003f52808b43ff992a603', 'Special Lecture by Dr Kale', '2015-08-18 18:30:00', '2015-08-18 18:30:00', 'Special lecture on biogas technology, waste management and life sciences  ', '615', 'hodes', '', ''),
-('6781a9e05f5e327a138f3d09ce0211ce4f166d940a14b46373e44402a3f3754cab4109f62c50777cbc1e3c4f1b8e6234e8d0b41281571bf0e1bd480c12149830', 'Guest Lecture by Padmashree Dr', '2015-08-18 18:30:00', '2015-08-18 18:30:00', 'Special lecture on biogas technology, waste management and life sciences  ', '615', 'hodes', '', ''),
-('6ee3743399634e0a721b8ee4e8ad02b96573433aa3b40fc604f274855ff28ab391720d2157376542da3ebf2dacb020f37b7277417f6f4fe137d6301c0d20107a', 'Training of Library staff for ', '2015-10-09 18:30:00', '2015-10-10 18:30:00', 'For Library and BVG (Tech) staff.', '511', 'hoden', '', ''),
-('704e306889b432078eba650de3c8931f865ee9dfe5789f10f1b8f1348a824e8b05cfe7b5192fefc8f6dbe7e297b8fcb481372596d03bb21d72aedbbd14a747d7', 'Fund Raiser', '2015-09-30 18:30:00', '2015-10-02 18:30:00', 'Multiple fund raising and fun events to support under privileged children ', 'RAIT', 'hodce5', '', ''),
-('71393eee21e1006cc647d3ae52c569168ce650249b91774df8a4738c32f33da807600fee5b9fb7576c736cec359e4bfa9a782dd422e87562ccf856744606ddbd', 'Workshop on Question Paper pat', '2012-09-11 18:30:00', '2012-09-11 18:30:00', 'The workshop organized on behalf of University of Mumbai for development of standard question paper pattern and blueprint for the subject of Applied Chemistry I &amp; II. The Chairman of committee was Prof. Dr. S. D. Shete, Head of Department of Engineering Sciences, RAIT. He was nominated as chairman by University of Mumbai ', '615', 'hodes', '', ''),
-('7159d185098684b0fa90026bfb095dee0d0c60b07f59b78c1bfae40b7b1bb26c9de7e6594df770e0044c69c27d2e00afd8e23719aab8d1a00947220ce7041db1', '1 day workshop on Parallel and', '2016-02-03 18:30:00', '2016-01-03 18:30:00', 'Expert session on PDS and Hands on Lab for ME and BE students', '615', 'faculty', '', ''),
-('723dcd2756398bc0abe7a6f6d09ca72809344aa76ef6795172eeeaafc37207c0194ad2c0d85c96ba014e807936feec661b2f7c79123ce530222ff2c64485c39d', 'Expert Lecture', '2015-08-18 18:30:00', '2015-08-18 18:30:00', 'Expert Lecture on Object oriented analysis and design for SE students by Mrs. Aditi Chabria', '511', 'hodce5', '', ''),
-('734032b63d7de2c123acef529a674cb697b8950e8434f967f4336cb477c18477b16ecf62bdb031b2253f610748d5b591524ed5bbad16afa727967be6bd2eee70', 'Training of Library staff for ', '2015-10-09 18:30:00', '2015-10-09 18:30:00', 'For Library and BVG (Tech) staff.', '511/611', 'hoden', '', ''),
-('7423155eebc1b38d178f5399a8a6e94f1c43b6be5e75eedbc6a2eb278441ffa7ff9650fe0eca4a19af1530056e309c38e6c1250a5a5cd1b96d8c2a2761ad03f7', 'Workshop on Blueprint of Appli', '2012-09-10 18:30:00', '2012-09-10 18:30:00', 'The Chairman of committee  was Prof. Dr. S. D. Shete, (nominated by University of Mumbai) Head of Department of Engineering Sciences, RAIT. ', '611', 'hodes', '', ''),
-('74a49c698dbd3c12e36b0b287447d833f74f3937ff132ebff7054baa18623c35a705bb18b82e2ac0384b5127db97016e63609f712bc90e3506cfbea97599f46f', 'The Art of Control', '2015-09-01 18:30:00', '2015-09-01 18:30:00', 'The Art of Control - by ISKCON, Juhu, Mumbai - 10.30 to 12.30', 'Room No 615', 'pa', '', ''),
-('74c205daf6521128f2ad9009e44d9b608ea4940b5747ef6e74d616e4599ccaffcf12bb69ad38c8bbbfbd248b94fc8adddc3b091c7906cb05501dbea026e0d568', 'Talk by Dr Naba Mandal', '2014-09-24 18:30:00', '2014-09-24 18:30:00', 'Dr. Naba Mandal from BARC delivered talk on Neutrino Physics', '615', 'hodes', '', ''),
-('74fdc787f0cdde659b8ec8fa3b47547447d3e4fbacb52bcb5cd387daac8f296524e9e49d7debddd180ad28e5c6b6a52ba2f17c6ae3c524301b434d24494557ba', 'Making Interactive teaching Ha', '2016-01-07 18:30:00', '2016-01-07 18:30:00', 'Session on interactive and participating learning experience by 1) Dr. Ramesh Vasappanavara 2) Dr. M. S Bhatia 3) Mr. hardik Bhatia Timing- 2 PM', '615 @ 2PM', 'faculty', '', ''),
-('7820561264baf306e62430accddb1e07cc3129eab1ad131040c36f84b7bda8e283116fcba7582f53f8521b8ad70789c34cb82781cc48e028e646a12c004de63a', 'Expert Lecture', '2015-11-26 18:30:00', '2015-11-26 18:30:00', 'Expert Lecture by Prof Sharad Bhartiya (IIT Bombay) on Systems Biology.', 'RAIT', 'hodce5', '', ''),
-('7928dede8d7e723c00b976549a83c2934f0876893dc5ae3d56416968ca2a018bc00fe6df315739698c80607bbc309de316b48f402fa6ee939c0aa39b27ebdb43', 'Academic Audit', '2016-02-28 18:30:00', '2016-02-28 18:30:00', 'audit of All Departments. ', 'RAIT', 'faculty', '', ''),
-('7a3dc8df4d8d7bd696f823eca286d72ef86ca176bffb84cf701ae6620247757a4fda28613043037d16b3970d2871461f60abb3944a936ad21538d1c27252d017', 'Tech Fest', '2016-03-20 18:30:00', '2016-03-22 18:30:00', 'Tech Fest of RAIT', 'RAIT', 'faculty', '', ''),
-('7c73947fa1821233428dd9684e52ce908130a91b903d5179f731c9ded61f06cecca427a7a1a5aabefaa35be5a6dd84efc03f2cb779f339b0766481eabb241e0c', 'Expert Lecture', '2015-09-30 18:30:00', '2015-09-30 18:30:00', '&quot;IP Awareness Seminar - Everything you wanted to know about Intellectual Property Rights (IPR)&quot; by Mr. Akhilesh C Srivastava', '615', 'hodce5', '', ''),
-('7ec8040a523b302bd6a6ee818a79fc25208f99f937fb8364444813e09498b5d31c18f67ccb7dcc79f3c3ceec724c4c726f8559319b7f0d7c3f8de26965f73b94', 'photo copy ', '2015-09-07 18:30:00', '2015-09-13 18:30:00', 'The students who have applied for the Photo copy of the assessed answer books of semester III to VI for the examinations held in May 15. can collect on or before 14th Sep 2015', 'exam section room no 104', 'exam', '', ''),
-('7f75a35d5b6344bdbaf47528d55562845bed882f', 'test even by mandeep', '2017-02-07 18:30:00', '2017-02-08 18:30:00', 'yooy', '567', 'mandeep', 'EXTC', 'Administration'),
-('80def0a37cb589be75e1b976ac3a7666e6f9ce9c3830901107fb170aaa0e3bd17ff96c5871972eca91f50658eb632aa431b804e2ba6b2dffce2ad0ae64712782', 'Techtalk IV', '2015-10-04 18:30:00', '2015-10-04 18:30:00', 'Talk on BE Project Ideas for Third Year Engineering students by CSI-RAIT.  ', 'Room No.: 511', 'csi', '', ''),
-('813d00895b26351a54f3380016887dad2a8e1fabf18983e2972247de23a66d97911603dca3cd2631be63851eb163792fe52cf787f3fee01ff8a8f44eca6dae4a', 'Question Paper Pattern Develop', '2012-09-12 18:30:00', '2012-09-12 18:30:00', 'The workshop organized on behalf of University of Mumbai for development of standard question paper pattern and blueprint for the subject of Applied Chemistry I &amp; II. The Chairman of committee (nominated by University of Mumbai) was Prof. Dr. S. D. Shete, Head of Department of Engineering Sciences, RAIT. ', '615', 'hodes', '', ''),
-('838eb538a86499c61ee2f47a4d94114a03a623c8f70b95dd0d74e552c8448de53aa3a53b3682cff76022a3edb8f08dd2fd48a2c3614e7fb3b8a3ce1d1e5662bc', 'Training Program', '2015-10-06 18:30:00', '2015-10-09 18:30:00', 'Hands-on Training Session on Programmable System on Chip (PSoC) using ARM Micro-controllers by Eduvance Technology Ltd.', 'RAIT', 'hodce5', '', ''),
-('83d3d75231ae36b89e0aceb2a623eec88eb5ac7f54fc7d9b2dab4c4cac6bd978826d44bd09685f86ccdccb891f11f3e89c0b0d0231447e496798c51c19ed53c4', 'Student Feedback', '2016-03-27 18:30:00', '2016-03-28 18:30:00', 'Academic feedback One ', 'ALL Labs', 'faculty', '', ''),
-('84865a87593500aaaa29a49c382b84491eb97ac61a9264edd724aaaa81227040a557412b98841c14ed48b365f9a2f25faf7f59561d001bfa118070ec60dea8f3', 'Techmate 2K15', '2015-09-30 18:30:00', '2015-10-02 18:30:00', '3-Day Technical Symposium conducted by CSI-RAIT.', '5th Floor', 'csi', '', ''),
-('85eb108b7e36af2b00ba3e0bc2e2ece782fbf86ef4946df5f91b8ddd978a559f4a6e4f8896b4dc7deb1ba22703ffc5dcefb650c54c60bc8d98b2411a5c2191f1', 'Talk by Padmashree Dr. Sharad ', '2015-08-18 18:30:00', '2015-08-18 18:30:00', 'Special talk on Biogas Technology, Life Science and Waste Management', '615', 'hodes', '', ''),
-('86f9b43a9bc2dee8342d2a780c1ef9fc2cd5d83a8fc792859143298a0bba80a4155313e575c419f775570a49246223fd33191e3ecfd04c702312d61a644eae91', 'Workshop for question paper pa', '2012-09-12 18:30:00', '2012-09-12 18:30:00', 'The workshop organized on behalf of University of Mumbai for development of standard question paper pattern and blueprint for the subject of Applied Chemistry I &amp; II. The Chairman of committee (nominated by University of Mumbai) was Prof. Dr. S. D. Shete, Head of Department of Engineering Sciences, RAIT. ', '615', 'hodes', '', ''),
-('8b4011ac7d1cad3505f46b6c66ff994d788f409952e3925d7f336d86bed2acd05e2eed1d3ace0309df7c740859f6ef084fb324e7d525cf85af15c1a33dc78f34', 'ARM University (UK) Workshop', '2015-10-06 18:30:00', '2015-10-10 18:30:00', 'The workshop is arranged for third year students. It will be given by Eduvance, Mumbai in collaboration with ARM University (UK) and Cypress Semiconductors. ', 'IT Centre (2nd FLoor)', 'hoden', '', ''),
-('8d89aa701de5a35b24cfadbd2088986ae13311d1a7c63abe5c780c62bc939a0577c3a78cf7ee4951c1b09f6849074c21ca1f7023e89bee683c1dbb2134a984d0', 'Holiday', '2015-07-17 18:30:00', '2015-07-17 18:30:00', 'Ramzan Id', 'with family', 'hodce5', '', ''),
-('8f8541b065653434370e0dd0f930ae0586c66a5235723b22e478daf1bee34865b05e9d5b86b1391c9ef575c2f47a967434e2b3f11a0f78e1133f2a89ce0a6d9f', 'Deepawali celebrations', '2015-11-10 18:30:00', '2015-11-10 18:30:00', 'Deepawali celebrations at Quarry center, Nerul MIDC area by Social Wing', 'Nerul', 'hodce5', '', ''),
-('8f93f4613808d16b19cc5b565de55835b96e474d3b07f0cb1e583c6f89498497aca7b67cd455116072fccbbe915a165911ac1fbbf31cc8617d099dd8df83f211', 'Expert Lecture', '2015-08-11 18:30:00', '2015-08-11 18:30:00', 'Guest Lecture on Application Architecture and design pattern for TE stuents', '615', 'hodce5', '', ''),
-('90d01b8f8ef22575ff0868399c6fb1c66f0006c9fdf349f1c7f82cb4b3b2e71c4ee43d49da5eafda43677bc4700b7256da4a1b12766e251c7ba6458be2fb32e0', 'NTPP', '2015-09-30 18:30:00', '2015-10-02 18:30:00', 'Technical Paper Presentation Competition conducted by CSI under Computer Department', '615', 'csi', '', ''),
-('9199db93daed2109d8f2cc8f881e4856f1037c87ac56ed5c7b5179300c74f1dff8422187a819bb81795f99a1ec3cf2c0aac63f461aa56ef94eb7c8aeed3e514d', 'TCS Faculty Development Sessio', '2016-03-09 18:30:00', '2016-03-09 18:30:00', 'TCS Faculty Development Session (Faculty &amp; ME Students)', '2nd Floor -206', 'PA', '', ''),
-('92cb2f14237222165e07647d973c33e51e3bd8d2628a5961334439cde0597ba172004a26d0288ddbb0122ee5241f9c2cf2ed0df2a555213b30e969fae5664063', 'Demo of New Library Software (', '2015-10-06 18:30:00', '2015-10-06 18:30:00', 'For faculty and students.', '615', 'hoden', '', ''),
-('93a1d2ebefd3fda56f78cfe4735200d495fcb6bcf7e7995988af37ac342d76e05eb8c3f507e4120ef10b5a8e3bfe6f820139bb8cb5bd4b6f23b682f14fb3ecb1', 'Expert Lecture', '2016-03-08 18:30:00', '2016-03-08 18:30:00', 'Security Issues In Mobile Computing 8.30 onwords', 'Room 615', 'PA', '', ''),
-('947de04bfae0bf062a66fc055d4c284c9779793d9bd58833ee7549fde1ff1effaf7aefdbc6c90ed0ac86c0acc82329e7c057d900c28ea7ed4724486f717ee38d', 'Workshop on stress managemnet', '2014-02-05 18:30:00', '2014-02-06 18:30:00', 'Stress Management workshop by Ramkrishna Mission to the students so that they can achieve success in their life', '611', 'hodes', '', ''),
-('95903604994d4ea70481353ac3322f05be9b965ec7eed540e06a3654a6ccb19221bc32f5f3baf35018ff039bfe94ccd1dbd919fac6cb265efca5ed43de1deb0a', 'Teahtalk I', '2015-08-09 18:30:00', '2015-08-09 18:30:00', 'Talk on Internship Experience and opportunities by final year students organised by CSI-RAIT.', 'Room No.: 511', 'csi', '', ''),
-('99ca407af8c883034a447f1e670330e32d2189357619ac4c10a0745ab37fb204979c42cd3c216b30a688be808aa588d1ea35d3d3780675a55175305b6618e07a', 'Term Test I', '2016-02-10 18:30:00', '2016-02-12 18:30:00', 'Term Test I Conduction', 'RAIT', 'hodfe', '', ''),
-('9a6398cffc55ade35b39f1e41cf46c7c491744961853ff9571d09abb55a78976f72c34cd7a8787674efa1c226eaa2494dbd0a133169c9e4e2369a7d2d02de31a', 'Expert Lecture', '2015-09-30 18:30:00', '2015-09-30 18:30:00', '&quot;IP Awareness Seminar - Everything you wanted to know about Intellectual Property Rights (IPR)&quot; by Mr. Akhilesh C Srivastava', '615', 'hodce5', '', ''),
-('9e8966c88e82807a157ba1f07dc19eac4995f2acc3572ff956e9c064ec0bbc93639492579ba07fc797228524b148009e50348c4d81ced63aae461a509bc8ddcf', 'Horizon', '2016-02-17 18:30:00', '2016-02-19 18:30:00', 'Culture Festival of RAIT', 'RAIT', 'faculty', '', ''),
-('a13f50ea24e97904c7eb23ca9c01e8f9faf3fb8e3097c47b0d6849fe0a3e7de48dc2797a916fdf3d68b21fc1378e7c6852b0876bfb6e182d143655f8721b12a2', 'workshop on development of blu', '2012-09-10 18:30:00', '2012-09-10 18:30:00', 'Workshop for development of blue print for the subject of Applied Chemistry I &amp; II. The Chairman of Committee was Prof. Dr. S. D. Shete, HOD dept of Engineering Sciences. He was nominated as chairman by University of Mumbai', '615', 'hodes', '', ''),
-('a2f4521450ffa4a0ec674bd6ee1bfe0e936c620adb73e0de1c16b0bd62fc03df62433f9a2ee12bd15c1fc21c888b5de9062311cba437c788ad530dc803366324', 'Skit', '2015-09-30 18:30:00', '2015-09-30 18:30:00', 'Skit on social issue by Social Wing', 'RAIT and stations', 'hodce5', '', ''),
-('a321d8b405e3ef2604959847b36d171eebebc4a8941dc70a4784935a4fca5d5813de84dfa049f06549aa61b20848c1633ce81b675286ea8fb53db240d831c568', 'Workshop on Rasberry Pi', '2015-08-16 18:30:00', '2015-08-17 18:30:00', 'A workshop is arranged by EXTC department in association with IETE-RAIT.', 'Lab. 201', 'hoden', '', ''),
-('a3f1d1838dfbe3d28a3b5eb40c36c175c051d2eafe9f6a3dd714ca0d221754a91c016cf93cba110bcd09848287dbd7ec0dee3f676c588f830af33b45d845573c', 'Expert Lecture', '2015-10-29 18:30:00', '2015-10-29 18:30:00', ' Expert Lecture by Mr Ramanan (CEO, Gauranga SoftTech Ltd.) on Career Opportunities for Electronics Graduates in Embedded Systems.', 'RAIT', 'hodce5', '', ''),
-('a4a3cd6ad27b0a593f5c188086978992fef71b22aa5e4211646c62c9c031dc32e301c56a3513ca811b2725eca01e09f7eefafaa65af129050beea4938ffa18ca', 'Workshop', '2016-01-29 18:30:00', '2016-01-30 18:30:00', 'Organised by CSI-RAIT.', 'Lab No.: 513', 'csi', '', ''),
-('a64c0e99969683e7224137b2726353ffd630fc15cceda1c75169daef65c9802a54dfebffa3902943044fe3273ccce95d0ddfff08fdbae388357a79ce891cfe38', 'Holiday', '2015-10-23 18:30:00', '2015-10-23 18:30:00', 'Moharam', 'with family', 'hodce5', '', ''),
-('a8abec0b2fac3f9c8d08c0b2b06e75e591b67a5cba47cc0f0c66468f1db6b5ddb75461b57ea1e17f1eb90b62e6ca9e1cd2491e43829709288e1f1f592bcae1a1', 'Basics of PYTHON', '2015-10-09 18:30:00', '2015-10-10 18:30:00', 'Inhouse workshop on Python Programming organised by CSI-RAIT.', 'Lab No.: 513', 'csi', '', ''),
-('a95b2fdf251ce814ab82db095eda6e92e86911cfbe16dede576a21c5f9296d2a4eab6195910d17c5e1ba827f2e088430721c4ed19eb366e9698c2a44e438af7a', 'Term Test II', '2016-04-06 18:30:00', '2016-04-10 18:30:00', 'Term Test II of RAIT', 'RAIT', 'faculty', '', ''),
-('aa5d854502f7f8d9478b114a031423876b96e8c5be857a4f07eaf3ebdde78712c3abed5328b1029d2bc6b7589191bd7c8f06e9c6a7a5da8280cb54536cbaf47b', 'Workshop on Question Paper pat', '2012-09-11 18:30:00', '2012-09-11 18:30:00', 'The workshop organized on behalf of University of Mumbai for development of standard question paper pattern and blueprint for the subject of Applied Chemistry I &amp; II. The Chairman of committee was Prof. Dr. S. D. Shete, Head of Department of Engineering Sciences, RAIT. He was nominated as chairman by University of Mumbai ', '615', 'hodes', '', ''),
-('ac7ee5c6be94adc321477d6cd10c8d156d1b521fc8fbb8557e78667b4182f428a2d1e4fcc89b460e1c1f5b08d8539b9c5c0e5e357cd605d9687fb0687ff63b31', 'Workshop', '2015-09-07 18:30:00', '2015-09-09 18:30:00', 'Workshop on NS2 for TE students by Mrs. Puja Padia and Mr. A V Vidhate', '513', 'hodce5', '', ''),
-('aff2049bfb5ff4f33fb20ef230c71ac1c0a1c0a8d3359b5fe8a6f455b1615a71211f281fc47d3d9a23413dae34192d29eae9bf4c7c3c2424910c71c0959cdc8e', 'Next Aim', '2015-09-30 18:30:00', '2015-10-02 18:30:00', 'Event providing mock practice for examinations of higher education such as GRE, GMAT conducted by CSI under Computer Department.', '514', 'csi', '', ''),
-('b23e8c4745c752d6360e4561424e977ee372244f4163a54f6c45d611a416a02fe46a0ad6b67de4ad901b578ad8e86cc70005fb25c6df177d3ab21a31cbee3c46', 'Special Lecture by Padmashree ', '2015-03-17 18:30:00', '2015-03-17 18:30:00', 'Padmashree Dr. Basu is Director of BARC, Mumbai delivered lecture on Nuclear Physics and research programs performed by BARC to the development of India', 'Auditorium', 'hodes', '', ''),
-('b374e67965aba91736546ae5fe3b934a51d45ff0ea40b471b7951056ec4b9750f92a53a7f2f9e17678d1217d923c93652ac970aee969f0b5b4b7a903f878ad39', 'AutoCAD Practical Examination', '2016-04-17 18:30:00', '2016-04-22 18:30:00', 'AutoCAD Practical Examination Tentative dates', '212', 'hodfe', '', ''),
-('b621c14d7802cba525145e0f2abea6cdb178415b230ca23ce27d35e95ecf2afd8b715fd1774f833ab3caba48f38b4acf4600dbc517fd78daf779cb9d66c65acf', 'Techtalk II', '2015-08-30 18:30:00', '2015-08-30 18:30:00', 'Talk on &quot;How to publish a Research Paper&quot; by external experienced speakers organised by CSI-RAIT.', 'Room No.: 511', 'csi', '', ''),
-('b7b9970ee86c181029a8667dc5b02875c91a26d867d6aa9d3d15ff0cfb53b7ef31321d4f23da8a1d8c2ea836bf830a543882d0e33f170b34885977f67edc041e', 'EPL', '2016-03-23 18:30:00', '2016-03-24 18:30:00', 'Cricket Matches ', 'DY Patil Stadium', 'faculty', '', ''),
-('bb1f87a09e8d945cade322fa725503ca1b0f1af4755e65b663359bea31cece79c835a18bcd0582bff3ca885afb660e4b9bd1413794b516b32f44a8d88eb20690', '1 day workshop on Parallel and', '2016-02-03 18:30:00', '2016-01-03 18:30:00', 'Expert session on PDS and Hands on Lab for ME and BE students', '615', 'faculty', '', ''),
-('bb85a0a8c0de7fcd6034177952d6affe0785c0d7760b921239b1b0749fbeacc3176729196e1c53f0aee0056daa96245eca6c01966aaad811519e514edfaa883c', 'meeting', '2015-09-13 18:30:00', '2015-09-13 18:30:00', ' meeting between Tech-Mahindra delegates and HODs on Monday , 14th September, 2015 at 11:20 am to 11:45 am : Objective: &quot; Understanding the industry requirements &quot; ', 'Placement Room', 'hodce5', '', ''),
-('bb90b23776dfde3333f63a924ebd2a039d80fc9280a7d1e9418529ced428930b69a95d55c4d9238f30b73789b4ebe0356bb9b8707025e3c527ca34825a160e2d', 'Industrial visit', '2015-10-16 18:30:00', '2015-10-16 18:30:00', ' Industrial visit of BE and ME students to M/S Hind Rectifiers, Bhandup.', 'Bhandup', 'hodce5', '', ''),
-('bc7dea130d219f9d1097a174eb56df348da86f1080c5e5c1ff9e9ef4c4204640ba01b946f3a2fa8ea8adcf2a099e76ccb58d8632c7c51b1d42c5d4f72ce09413', 'Techtalk III', '2015-09-06 18:30:00', '2015-09-06 18:30:00', 'Talk on UX/UI (User Experience/User Interface) Design by Faiz Malkani organised by CSI-RAIT.', 'Room No.: 511', 'csi', '', ''),
-('bd102bc7ef281270c27bbbf8e95c0d7c23495580486e2c6298c8a42d0ce0d973abf690aabf277358cc435307a3ea09824dc58150d6827ba59f98ae2041ee0344', 'Expert Lecture on Introduction', '2016-01-07 18:30:00', '2016-01-07 18:30:00', 'Expert Lecture on Introduction to openGL by Prof. Shridhar Donamal for Second Year Students', '511', 'faculty', '', ''),
-('be37ccebe21815559666b60338ec1492670b8fd2bf6cc63c5c943639ddcc50981003846b75b9e97ad0c0c19484292f59b1d30b45c7b07d1f8973bae68a3b8431', 'Workshop on stress managemnet', '2013-08-19 18:30:00', '2013-08-19 18:30:00', 'Stress Management by Faculty of Bramha Kumari', '611', 'hodes', '', ''),
-('c0033b5f5a4815a172984d64037dd49a8663fb8b3a71e47f11ecd332c8c3819c57e1631fdf46d66c6ff0e58763a61529fefcfa2a6675e186ee901e5452fedd94', 'Holiday', '2015-09-16 18:30:00', '2015-09-16 18:30:00', 'Ganesh Chaturti', 'Ground Floor RAIT', 'hodce5', '', ''),
-('c2bef5a46abc8a9f3c1447a2a168baf34f2770084be0d9a03546540f117360c6faf35d80a4922fea09cb69c418ad08439bcb3fa6bf09a9e570bc2b1912b2906d', 'Student Feedback', '2016-03-27 18:30:00', '2016-03-31 18:30:00', 'Feedback from students on both CO and Faculty feedback', '212', 'hodfe', '', ''),
-('c2fee34ae10dcb8e1aa60bd981f7e0b0979e7d31146634287f17af062dd16fdd18d40bdb1a76d9be28e5ccfd3e496c490ae7026579ad0a315407a3cb20c3681c', 'Expert Session ', '2016-01-19 18:30:00', '2016-01-19 18:30:00', 'Expert session for BE students by Mr. Munir Syad', '615', 'faculty', '', ''),
-('c386662ba940c3dab369a16cc66bbfac61d14f0ffb789270a93cab315e7a297fa8765c105b3c735f509973e4771f5fa1a50ecf6e216d57715a044b662e59265b', 'Webtechnology and PHP Workshop', '2015-08-31 18:30:00', '2015-09-02 18:30:00', 'Training on Web Technology and Php for students of Third Year Computer Engineering organised by Computer Dept. and CSI-RAIT.', 'Lab No.: 513', 'csi', '', ''),
-('c45d027d446112379f9dcb9a9e84763c84ffa7533632ae255fb9d5134d54171769a5906366091b39ae680484eabc9a3a08ca58e980419f03d86b11b345778335', 'Spirit of Christmas', '2015-12-24 18:30:00', '2015-12-24 18:30:00', 'Christmas celebrations at Rabale Community center for underprivileged children by Social Wing', 'Rabale', 'hodce5', '', ''),
-('c4fb62160277ff7dc480afb1dc8b3a224fa0df2f004e76c59a835bca08a96c60ef41928b6df672eecdd82e1544894e5e6efb7575c1f24d050c39652788f86380', 'D Y Patil Polytechnic', '2016-02-22 18:30:00', '2016-02-22 18:30:00', 'Diploma Project Exhibition &amp; presentation (Room No. 615 &amp; one Class Room in 6th Floor)', '6th Floor', 'PA', '', ''),
-('c674de1d90763c6981258fe9381ef803a9384768b848c3878ab9f2c7f90c80ce9f21be1211f7c762317c780df40b7c372543f834953c43a77fe9a4e9d2ce44d7', 'Expert Lecture', '2015-09-22 18:30:00', '2015-09-22 18:30:00', 'Expert Lecture by Dr Vrunda Joshi (PVG College of Engineering, Pune) on Spherical Robot: Design and Control.', 'RAIT', 'hodce5', '', ''),
-('cc9aab6fee3af4f819209bf43e3bc6f8f02ecbf5d2f27815b9a2132d3dbbfe9ba72d6024794487c37affbc6828040ed74d3d2671bb962b44c95f9070d4e2db48', 'RAIT Placement', '2016-01-28 18:30:00', '2016-01-28 18:30:00', 'Teach for India Seminar', 'Room No. 615', 'PA', '', ''),
-('ce4dd661e4d69073c7999282048ea9ee91932db0d699f8b13b2db70fe532d987ac4a0aef309b82e1ad2aa6c2f2f60473093cd1e399a737cff3f9e70585d36be7', 'Expert Lecture', '2015-10-06 18:30:00', '2015-10-06 18:30:00', 'Expert Lecture on Software Architecture for BE students by Prof. Kavita Kelkar', '511', 'hodce5', '', ''),
-('cf1b881c8ec7355167290b18c4a4f8b39cab1875514e649ea0f313f210e227ef8330c0fd4ead855f80f02dd158f2e9195c948c5b8edc804b51cf3e36735965cf', 'Holiday', '2016-01-25 18:30:00', '2016-01-25 18:30:00', 'Republic Day', 'Near President Office', 'faculty', '', ''),
-('d24b669d637589d559e33774bb90ef735e5ee46bc336f3fece735bf60b97ac0209923d8a3e26e0ab9ef6672add297e4a44250c00b098535d390dafc824055a55', 'Full Stack Development worksho', '2016-01-28 18:30:00', '2016-01-30 18:30:00', 'Workshop for T.E students organized by IT department. Time- 10 am to 5 pm', '616 ', 'faculty', '', ''),
-('d951c24b4b9e7b78c94c324cdcfaf0ecbf0fad6f8fbaeca34d64c1521902e8b1eaf8e33f008617f8e198e87a2df7e9c2c36478bcc539dae67de8efc30db07f22', 'Expert Lecture', '2015-11-26 18:30:00', '2015-11-26 18:30:00', 'Expert Lecture by Prof Sharad Bhartiya (IIT Bombay) on Systems Biology.', 'RAIT', 'hodce5', '', ''),
-('dc2de67eb248dcdc50c63aabd1bca8335ad01106dd8ff720590077c161f558a7b61db3c56b3a32997597a3db98fd191c3e9e7fdf555aac1525f0b5342cac4088', 'Expert Lecture', '2015-09-30 18:30:00', '2015-09-30 18:30:00', 'Expert Talk Series: Session-I Expert Talk on Evolution of computing grids and clouds by Dr. B.S.Jagadeesh, BARC', '615', 'hod', '', ''),
-('dc76224ce103959668fe797ec4184bc5605c323faa77b22ee62df9d1d139dfe6b9aa61cb42f7ee9707ae1d10143a180a8a48b012ef6d4d63f5187bd9e2b9ada9', 'Demo of New Library Software (', '2015-10-06 18:30:00', '2015-10-06 18:30:00', 'For faculty and students.', '615', 'hoden', '', ''),
-('dfa5d1cefd0efdf5f52b765120da72c5706eb1dd113234cfdf31e31f9cd0283366f6a8f7230f29ea42d83acfe02743dc2504cda07c30f6e84bf9b1ca35966266', 'Holiday', '2015-08-14 18:30:00', '2015-08-14 18:30:00', 'Independence day', 'President Office', 'hodce5', '', ''),
-('e053886e1b797bc5a80f932302f0201265a599d82e2502d41941d6e652614ef88fa058e009094d26655f880200df12c2100f690254fd1e5bae75d7441763cd33', 'Holiday', '2015-09-24 18:30:00', '2015-09-24 18:30:00', 'Bakari Id', 'with family', 'hodce5', '', ''),
-('e0b163e4414d0090558b64908866c553e71f8c3aba2cd482d5e1490b8ab6362b3b3c6a2648c316cd94347a53bfa4ef998295b241e55f71d678914bcc94022945', 'Expert Session ', '2016-01-17 18:30:00', '2016-01-17 18:30:00', 'Expert Session on E-Learning System by Prof. Sasikumar at 10.00 am', '615', 'faculty', '', ''),
-('e1717145a30eb5e8f8270516645b0f3db906a330', 'test even by mandeep', '2017-02-01 18:30:00', '2017-02-03 18:30:00', 'this is a test description edited', '3490', 'mandeep', 'IT', 'Placement'),
-('e2bc8ca53e630757ef4a3e8f3d0fc48aac10a66dbe6d14d759d00c21263f4c0623f6841dc3995081f97eff9641ea9be42c9219f66e6c5b9ea9effa1c8450c3fb', 'Workshop on behalf of Mumbai U', '2012-09-10 18:30:00', '2012-09-10 18:30:00', 'The Chairman of committee  was Prof. Dr. S. D. Shete, (nominated by University of Mumbai) Head of Department of Engineering Sciences, RAIT. ', '611', 'hodes', '', ''),
-('e2d665d64deb73cf15ae11fbdbf1b821ffce181efd5ee9846ef05209486de8057a6535f2bae0418030e34eba099ee9e695708a0e9c6d9ddcf78b4b3a8b4f27ab', 'Workshop on Android', '2015-09-24 18:30:00', '2015-09-25 18:30:00', 'Successfully planned and Conducted workshop for android App Development for Third Year Engineering students of Information Technology Department.', '616', 'hod', '', ''),
-('e33cee2805c8ad78b93348f866226eb799b23dbda2e450d8fc340b484a350dbb70bbe19e271742c26bcb2e61f34dbf0a7a3393d5d416040c3ce611a0797ca8d1', 'Academic Audit II', '2016-03-30 18:30:00', '2016-03-30 18:30:00', 'Academic Audit of all Department', 'RAIT', 'faculty', '', ''),
-('e559aefac6fe1b006d3497abee2649ceb71fcceea73fd223782338ab29c08e5b887836b806349d5ace9030c69ca91850b01c468825d02359a5faee7261de415e', 'Training Program', '2015-08-31 18:30:00', '2015-09-04 18:30:00', 'Training program on Trends and Techniques in Web Technology and Android Technology for TE students by Mr. Samsher Singh, CEO Unisoft Technology, C B D Belapur', '513', 'hodce5', '', ''),
-('e6e6ae7966b178f8c40d5eff47454435fbd1452a340b82e5895063f93c1c344d853972c982f9120ea1b9afa4f9597366fb3a557b7e812661e949a1abafaacdcc', 'Training of Library staff for ', '2015-10-09 18:30:00', '2015-10-10 18:30:00', 'For Library and BVG (Tech) staff.', '511/611', 'hoden', '', ''),
-('e8ee924c1dcb782f1bf5d3ceb488fdb293e551fb8be45457a543e8c88aa31e04e516434c948e507126673e6466a6d6da619193b9efe0d8d50fdf5414020b0212', 'Second Defaulter''s List', '2016-04-04 18:30:00', '2016-04-04 18:30:00', 'Display of Second Defaulter''s :ist', 'RAIT Notice Board', 'hodfe', '', ''),
-('eb2f6d6c3d0d1c9104d04facb613acd5d8c3eb74884c7f3fc2f3077bcecd8baced50b287a54ba9f823a4b47d3c247ed65a351983db5d48d6714291ebeb5c71ae', 'SPA Practical Examination', '2016-04-17 18:30:00', '2016-04-22 18:30:00', 'SPA Practical Examination Tentative Dates', 'SPA Labs at 5th floor and 6th ', 'hodfe', '', ''),
-('ecca7934dc82b6b99cba1166bc382fd0f40cd253ee772fb94ecede4fe352ae8fe13a3e734c24c0123c31a2bce48ec594b116fad8acab1648ed33c49435147ba6', 'Holiday', '2016-03-06 18:30:00', '2016-03-06 18:30:00', 'Mahashivratri', '@ Your Home', 'faculty', '', ''),
-('edbd48c836f826b5ed8d62b401cd19674ef1b8627b9c68a4639819a8564f57426c632b7c1d3dee8209c48c2396da0a3a08d160617f7291a1186ca6d9de5db272', 'Holiday', '2015-10-21 18:30:00', '2015-10-21 18:30:00', 'Dussehra', 'with family', 'hodce5', '', ''),
-('ee2c7bfa07c3f6523f8846e14428985172efeb4545d14ed4757dfc29be3732557a8abf7a1e89fc7e357cd90b6c39b9123e5cf0f6c4b1ab283171b31ede9ba278', 'Workshop on Syllabus Revision ', '2012-09-10 18:30:00', '2012-09-10 18:30:00', 'Orientation Programme on the revised syllabus of Applied Chemistry I &amp; II on the behalf of University of Mumbai. This workshop was organized to get familiar with new pattern of curriculum. ', '615', 'hodes', '', ''),
-('ef76d932b366eb3687b150948cc2cac76efb0f9f9929ffc076f36b275d58b6a5d8a6aea3db9ff9a8cd3ff5d0b73f25fb7a0aa577dcca205d525b38100be49bae', 'Workshop on Sahaj Yoga', '2015-03-01 18:30:00', '2015-03-04 18:30:00', 'Sahaj Yoga Meditation. Faculty of Sahaj Yoga', '611', 'hodes', '', ''),
-('f0e7021b9f95b362c9221cc750674f49a2b930d8a4e69cf2391f3b46385acc75e63fad08527b38591aab57c1687a9537d4b3bdc843ade593aa179c5adf561069', 'Seminar By Oracle', '2016-02-08 18:30:00', '2016-02-08 18:30:00', 'Dept of IT (Seminar By Oracle) 01.30pm', 'Room 615', 'PA', '', ''),
-('f4306ff73020f6eee3d984bc488ec6a8daa2882ed8cdf33769d6ec1bff04fde0476e0ae47eabd96afe0082ec50aaecb1f32dec2cfa87f01a36400af152525915', 'Latex Training', '2016-01-28 18:30:00', '2016-01-28 18:30:00', 'Training on Latex for BE(IT) students for generation of their project black book.', '616 lab', 'hod', '', ''),
-('f43d11b9e338dd9588efbb77228fee0d2ad406c3fa808e4fa5020884fe4df3e782b11205ced90f7080976ac1d3c74afc54da03613eb175e956f94108879e67c2', 'Expert Session ', '2016-01-17 18:30:00', '2016-01-17 18:30:00', 'Expert Session on Pattern Recognition for ME ', '615', 'faculty', '', ''),
-('f729827708b4e0a559425f6fcb0b62f1c36a53f0d3341f852bf285a5360d3356243ea353305fbd30b01ff009c8c628ee7df635dd44b142ab5e357a8c09b01b6b', 'Project Competition ', '2016-03-31 18:30:00', '2016-03-31 18:30:00', 'B. E Project Competition ', 'E- Yantra Lab', 'faculty', '', ''),
-('f7b22c929d376640e62256f316b6e75bfc7c547203fb9f534f0ba024e71c39c268465ada634b3e6126143bd2fd2d1b02e9f37d5612a8af949b0d6690099e8e67', 'Term Test I Marks Display', '2016-02-16 18:30:00', '2016-02-16 18:30:00', 'Display of Term Test I marks to the students so that they can analyse and improve their performance', 'RAIT Notice Board', 'hodfe', '', ''),
-('f82074dd637c0b64b91d14d85f0b67faaa60a49686677f2b8851fdbd81d9aed2d8b347e5cf2c77b53063900cc805755e3a14f7c405be2544fb4e35368d463425', 'Seminar on behalf of Mumbai Un', '2012-09-10 18:30:00', '2012-09-10 18:30:00', 'Workshop for development of blue print for the subject of Applied Chemistry I &amp; II. The Chairman of Committee was Prof. Dr. S. D. Shete, HOD dept of Engineering Sciences. He was nominated as chairman by University of Mumbai', '615', 'hodes', '', ''),
-('fb131bc57a477c8c9d068f1ee5622ac304195a77164ccc2d75d82dfe1a727ba8d674ed87f96143b2b416aacefb555e3045c356faa23e6d21de72b85822e39fdd', 'Guest Lecture by Dr S Ghosh', '2015-02-17 18:30:00', '2015-02-17 18:30:00', 'Dr. S Ghosh is scientist in BARC and working at Biotechnology division. He introduced students that how technology can be used to develop biogas and how it can be controlled.', '615', 'hodes', '', ''),
-('fed283e2751ac7f2e57c4c79a73ba35ba45df1da9806e3eb11fde56385c753b7a4fd11886929de45bcee36924961b65824e5c6af9b5d2845cd3766a1f1314f20', 'Term Test I', '2016-02-10 18:30:00', '2016-02-12 18:30:00', 'Term Test of All Departments.', '5 Floor', 'faculty', '', '');
+(1, 'djkhkf', '2017-01-10 18:30:00', '2017-01-13 18:30:00', 'kgj', 'hgjhg', 'mandeep', 'COMPUTER', 'Technical'),
+(2, 'testing trigger update', '2017-01-03 18:30:00', '2017-01-05 18:30:00', 'testing triff==gger decs', 'testing trigger location', 'mandeep', 'ETRX', 'Examination'),
+(3, 'Faculty Meetting', '2015-08-30 18:30:00', '2015-08-30 18:30:00', 'NAAC work review', '112C', 'hodin', '', ''),
+(4, 'Workshop on PCB Design', '2015-08-09 18:30:00', '2015-08-13 18:30:00', 'This is a free workshop for third and fourth year students.', 'Lab. 201 and 208', 'hoden', '', ''),
+(5, 'Workshop on Rasberry Pi', '2015-08-16 18:30:00', '2015-08-17 18:30:00', 'A workshop is arranged by EXTC department in association with IETE-RAIT.', 'Lab. 201', 'hoden', '', ''),
+(6, 'NBA FILES - Meeting', '2015-08-23 18:30:00', '2015-08-23 18:30:00', 'All HODs &amp; Faculty handling NBA Files requested to attend', 'Principal Chambers', 'principal', '', ''),
+(7, 'Youth &amp; Communal Harmony- ', '2015-08-30 18:30:00', '2015-08-30 18:30:00', 'Youth &amp; Communal Harmony- School of Eduction', 'Room No 615', 'pa', '', ''),
+(8, 'Role of Instrumentation Engg. ', '2015-09-02 18:30:00', '2015-09-02 18:30:00', 'Dept. of Instrumentation Engg Role of Instrumentation Engg. in Corporat World', 'Room No 615', 'pa', '', ''),
+(9, 'The Art of Control', '2015-09-01 18:30:00', '2015-09-01 18:30:00', 'The Art of Control - by ISKCON, Juhu, Mumbai - 10.30 to 12.30', 'Room No 615', 'pa', '', ''),
+(10, 'Placement Preparation Talk', '2015-09-01 18:30:00', '2015-09-01 18:30:00', 'Placement Preparation Talk 3.00pm onwards.', 'Room No 615', 'pa', '', ''),
+(11, 'Placement Preparation Talk', '2015-09-02 18:30:00', '2015-09-02 18:30:00', 'Placement Preparation Talk 3.00pm onwards', 'Room No 615', 'pa', '', ''),
+(12, 'Workshop', '2015-09-15 18:30:00', '2015-09-15 18:30:00', 'Network Security workshop for UG and PG', '513', 'hodce5', '', ''),
+(13, 'Expert Lecture', '2015-09-30 18:30:00', '2015-09-30 18:30:00', '&quot;IP Awareness Seminar - Everything you wanted to know about Intellectual Property Rights (IPR)&quot; by Mr. Akhilesh C Srivastava', '615', 'hodce5', '', ''),
+(14, 'Expert Lecture', '2015-09-30 18:30:00', '2015-09-30 18:30:00', '&quot;IP Awareness Seminar - Everything you wanted to know about Intellectual Property Rights (IPR)&quot; by Mr. Akhilesh C Srivastava', '615', 'hodce5', '', ''),
+(15, 'Expert Lecture', '2015-09-30 18:30:00', '2015-09-30 18:30:00', 'Expert Talk Series: Session-I Expert Talk on Evolution of computing grids and clouds by Dr. B.S.Jagadeesh, BARC', '615', 'hod', '', ''),
+(16, 'Holiday', '2015-07-17 18:30:00', '2015-07-17 18:30:00', 'Ramzan Id', 'with family', 'hodce5', '', ''),
+(17, 'Holiday', '2015-08-14 18:30:00', '2015-08-14 18:30:00', 'Independence day', 'President Office', 'hodce5', '', ''),
+(18, 'Holiday', '2015-08-17 18:30:00', '2015-08-17 18:30:00', 'Parsi New Year', 'with family', 'hodce5', '', ''),
+(19, 'Holiday', '2015-09-16 18:30:00', '2015-09-16 18:30:00', 'Ganesh Chaturti', 'Ground Floor RAIT', 'hodce5', '', ''),
+(20, 'Holiday', '2015-09-24 18:30:00', '2015-09-24 18:30:00', 'Bakari Id', 'with family', 'hodce5', '', ''),
+(21, 'Holiday', '2015-10-01 18:30:00', '2015-10-01 18:30:00', 'Gandhi Jayanti', 'Tech Fests in RAIT', 'hodce5', '', ''),
+(22, 'Holiday', '2015-10-21 18:30:00', '2015-10-21 18:30:00', 'Dussehra', 'with family', 'hodce5', '', ''),
+(23, 'Holiday', '2015-10-23 18:30:00', '2015-10-23 18:30:00', 'Moharam', 'with family', 'hodce5', '', ''),
+(24, 'Holiday', '2015-11-10 18:30:00', '2015-11-11 18:30:00', 'Deepawapli', 'with family', 'hodce5', '', ''),
+(25, 'Donation Drive by Social Wing', '2015-08-02 18:30:00', '2015-08-07 18:30:00', 'Collection of Books, Cloths, stationary, bags, fund from RAIT students and faculty and donted to Rabale Community center', 'RAIT Glass door', 'hodce5', '', ''),
+(26, 'Tree Plantation Drive by Socia', '2015-08-21 18:30:00', '2015-08-21 18:30:00', '150 Tree plantation at Dronagiri  by 102 RAIT students', 'Uran', 'hodce5', '', ''),
+(27, 'Tree Plantation Drive by Socia', '2015-08-21 18:30:00', '2015-08-21 18:30:00', '150 Tree plantation at Dronagiri  by 102 RAIT students', 'RAIT Glass door', 'hodce5', '', ''),
+(28, 'Cleanup drive by social wing', '2015-09-28 18:30:00', '2015-09-28 18:30:00', 'Beach Clean-up drive at Juhu Chowpati ', 'Juhu Choupati', 'hodce5', '', ''),
+(29, 'Short film ', '2015-10-01 18:30:00', '2015-10-01 18:30:00', 'Short film on a social issue by RAIT students to be put on UTube', 'RAIT Glass door', 'hodce5', '', ''),
+(30, 'Fund Raiser', '2015-09-30 18:30:00', '2015-10-02 18:30:00', 'Multiple fund raising and fun events to support under privileged children ', 'RAIT', 'hodce5', '', ''),
+(31, 'Skit', '2015-09-30 18:30:00', '2015-09-30 18:30:00', 'Skit on social issue by Social Wing', 'RAIT and stations', 'hodce5', '', ''),
+(32, 'Deepawali celebrations', '2015-11-10 18:30:00', '2015-11-10 18:30:00', 'Deepawali celebrations at Quarry center, Nerul MIDC area by Social Wing', 'Nerul', 'hodce5', '', ''),
+(33, 'Spirit of Christmas', '2015-12-24 18:30:00', '2015-12-24 18:30:00', 'Christmas celebrations at Rabale Community center for underprivileged children by Social Wing', 'Rabale', 'hodce5', '', ''),
+(34, 'medical check-up camp', '2015-10-16 18:30:00', '2015-10-16 18:30:00', 'Medical Check-up camp for Girija Orphanage children at Dr, D Y Patil Hospital by Social Wing', 'D Y Patil Hospital', 'hodce5', '', ''),
+(35, 'Workshop', '2015-08-05 18:30:00', '2015-08-05 18:30:00', 'Workshop on Artificial Intelligence for BE students', '615', 'hodce5', '', ''),
+(36, 'Expert Lecture', '2015-08-11 18:30:00', '2015-08-11 18:30:00', 'Guest Lecture on Application Architecture and design pattern for TE stuents', '615', 'hodce5', '', ''),
+(37, 'Expert Lecture', '2015-08-18 18:30:00', '2015-08-18 18:30:00', 'Expert Lecture on Object oriented analysis and design for SE students by Mrs. Aditi Chabria', '511', 'hodce5', '', ''),
+(38, 'Training Program', '2015-08-31 18:30:00', '2015-09-04 18:30:00', 'Training program on Trends and Techniques in Web Technology and Android Technology for TE students by Mr. Samsher Singh, CEO Unisoft Technology, C B D Belapur', '513', 'hodce5', '', ''),
+(39, 'Workshop', '2015-09-07 18:30:00', '2015-09-09 18:30:00', 'Workshop on NS2 for TE students by Mrs. Puja Padia and Mr. A V Vidhate', '513', 'hodce5', '', ''),
+(40, 'Workshop', '2015-09-15 18:30:00', '2015-09-15 18:30:00', 'Workshop on Network Security for BE students by Mr. Sachin Dedhiya', '513', 'hodce5', '', ''),
+(41, 'Expert Lecture', '2015-10-06 18:30:00', '2015-10-06 18:30:00', 'Expert Lecture on Software Architecture for BE students by Prof. Kavita Kelkar', '511', 'hodce5', '', ''),
+(42, 'photo copy ', '2015-09-07 18:30:00', '2015-09-13 18:30:00', 'The students who have applied for the Photo copy of the assessed answer books of semester III to VI for the examinations held in May 15. can collect on or before 14th Sep 2015', 'exam section room no 104', 'exam', '', ''),
+(43, 'Workshop on Webreneurship', '2015-08-07 18:30:00', '2015-08-08 18:30:00', 'Workshop on Webreneurship consisting of CMS, JOOMLA, DRUPAL Technologies and their business applications.', 'Lab No.: 513', 'csi', '', ''),
+(44, 'Webtechnology and PHP Workshop', '2015-08-31 18:30:00', '2015-09-02 18:30:00', 'Training on Web Technology and Php for students of Third Year Computer Engineering organised by Computer Dept. and CSI-RAIT.', 'Lab No.: 513', 'csi', '', ''),
+(45, 'Basics of PYTHON', '2015-10-09 18:30:00', '2015-10-10 18:30:00', 'Inhouse workshop on Python Programming organised by CSI-RAIT.', 'Lab No.: 513', 'csi', '', ''),
+(46, 'Teahtalk I', '2015-08-09 18:30:00', '2015-08-09 18:30:00', 'Talk on Internship Experience and opportunities by final year students organised by CSI-RAIT.', 'Room No.: 511', 'csi', '', ''),
+(47, 'Techtalk II', '2015-08-30 18:30:00', '2015-08-30 18:30:00', 'Talk on &quot;How to publish a Research Paper&quot; by external experienced speakers organised by CSI-RAIT.', 'Room No.: 511', 'csi', '', ''),
+(48, 'Techtalk III', '2015-09-06 18:30:00', '2015-09-06 18:30:00', 'Talk on UX/UI (User Experience/User Interface) Design by Faiz Malkani organised by CSI-RAIT.', 'Room No.: 511', 'csi', '', ''),
+(49, 'Techmate 2K15', '2015-09-30 18:30:00', '2015-10-02 18:30:00', '3-Day Technical Symposium conducted by CSI-RAIT.', '5th Floor', 'csi', '', ''),
+(50, 'Techtalk IV', '2015-10-04 18:30:00', '2015-10-04 18:30:00', 'Talk on BE Project Ideas for Third Year Engineering students by CSI-RAIT.  ', 'Room No.: 511', 'csi', '', ''),
+(51, 'Workshop', '2016-01-29 18:30:00', '2016-01-30 18:30:00', 'Organised by CSI-RAIT.', 'Lab No.: 513', 'csi', '', ''),
+(52, 'Workshop on Designing.', '2016-02-19 18:30:00', '2016-02-20 18:30:00', 'Creative designing workshop using Corel Draw-(Designing S/W), organised by CSI-RAIT.', 'Lab No.: 513', 'csi', '', ''),
+(53, 'Expert Lecture', '2015-09-22 18:30:00', '2015-09-22 18:30:00', 'Expert Lecture by Dr Vrunda Joshi (PVG College of Engineering, Pune) on Spherical Robot: Design and Control.', 'RAIT', 'hodce5', '', ''),
+(54, 'Training Program', '2015-10-06 18:30:00', '2015-10-09 18:30:00', 'Hands-on Training Session on Programmable System on Chip (PSoC) using ARM Micro-controllers by Eduvance Technology Ltd.', 'RAIT', 'hodce5', '', ''),
+(55, 'Industrial visit', '2015-10-16 18:30:00', '2015-10-16 18:30:00', ' Industrial visit of BE and ME students to M/S Hind Rectifiers, Bhandup.', 'Bhandup', 'hodce5', '', ''),
+(56, 'Expert Lecture', '2015-10-29 18:30:00', '2015-10-29 18:30:00', ' Expert Lecture by Mr Ramanan (CEO, Gauranga SoftTech Ltd.) on Career Opportunities for Electronics Graduates in Embedded Systems.', 'RAIT', 'hodce5', '', ''),
+(57, 'Workshop', '2015-11-19 18:30:00', '2015-11-20 18:30:00', '2-day Hands-on Session on COMSOL by Prof Sachin Umbarkar.', 'RAIT', 'hodce5', '', ''),
+(58, 'Expert Lecture', '2015-11-26 18:30:00', '2015-11-26 18:30:00', 'Expert Lecture by Prof Sharad Bhartiya (IIT Bombay) on Systems Biology.', 'RAIT', 'hodce5', '', ''),
+(59, 'Expert Lecture', '2015-11-26 18:30:00', '2015-11-26 18:30:00', 'Expert Lecture by Prof Sharad Bhartiya (IIT Bombay) on Systems Biology.', 'RAIT', 'hodce5', '', ''),
+(60, 'meeting', '2015-09-13 18:30:00', '2015-09-13 18:30:00', ' meeting between Tech-Mahindra delegates and HODs on Monday , 14th September, 2015 at 11:20 am to 11:45 am : Objective: &quot; Understanding the industry requirements &quot; ', 'Placement Room', 'hodce5', '', ''),
+(61, 'Talk by Padmashree Dr. Sharad ', '2015-08-18 18:30:00', '2015-08-18 18:30:00', 'Special talk on Biogas Technology, Life Science and Waste Management', '615', 'hodes', '', ''),
+(62, 'Guest Lecture by Padmashree Dr', '2015-08-18 18:30:00', '2015-08-18 18:30:00', 'Special lecture on biogas technology, waste management and life sciences  ', '615', 'hodes', '', ''),
+(63, 'Guest Lecture by Padmashree Dr', '2015-08-18 18:30:00', '2015-08-18 18:30:00', 'Special lecture on biogas technology, waste management and life sciences  ', '615', 'hodes', '', ''),
+(64, 'Special Lecture by Dr Kale', '2015-08-18 18:30:00', '2015-08-18 18:30:00', 'Special lecture on biogas technology, waste management and life sciences  ', '615', 'hodes', '', ''),
+(65, 'Workshop on stress managemnet', '2013-08-19 18:30:00', '2013-08-19 18:30:00', 'Stress Management by Faculty of Bramha Kumari', '611', 'hodes', '', ''),
+(66, 'Technical Talk', '2014-09-23 18:30:00', '2014-09-23 18:30:00', 'Seminar by Dr Zakir Taquvi Ex NASA', '615', 'hodes', '', ''),
+(67, 'Workshop on stress managemnet', '2014-02-05 18:30:00', '2014-02-06 18:30:00', 'Stress Management workshop by Ramkrishna Mission to the students so that they can achieve success in their life', '611', 'hodes', '', ''),
+(68, 'Workshop on Syllabus Revision ', '2012-09-10 18:30:00', '2012-09-10 18:30:00', 'Orientation Programme on the revised syllabus of Applied Chemistry I &amp; II on the behalf of University of Mumbai. This workshop was organized to get familiar with new pattern of curriculum. ', '615', 'hodes', '', ''),
+(69, 'Workshop on revised syllabus', '2012-09-10 18:30:00', '2012-09-10 18:30:00', 'Orientation Programme on the revised syllabus of Applied Chemistry I &amp; II on the behalf of University of Mumbai. This workshop was organized to get familiar with new pattern of curriculum. ', '615', 'hodes', '', ''),
+(70, 'Special Lecture by Padmashree ', '2015-03-17 18:30:00', '2015-03-17 18:30:00', 'Padmashree Dr. Basu is Director of BARC, Mumbai delivered lecture on Nuclear Physics and research programs performed by BARC to the development of India', 'Auditorium', 'hodes', '', ''),
+(71, 'Guest Lecture by Padmashree Dr', '2015-03-17 18:30:00', '2015-03-17 18:30:00', 'Padmashree Dr. Basu is Director of BARC, Mumbai delivered lecture on Nuclear Physics and research programs performed by BARC to the development of India', 'Auditorium', 'hodes', '', ''),
+(72, 'Talk by Dr Basu', '2015-03-17 18:30:00', '2015-03-17 18:30:00', 'Padmashree Dr Basu (Director, BARC) delivered talk on development of Nuclear Physics in India and role of BARC in the development of India', 'Auditorium', 'hodes', '', ''),
+(73, 'Talk by Dr Naba Mandal', '2014-09-24 18:30:00', '2014-09-24 18:30:00', 'Dr. Naba Mandal from BARC delivered talk on Neutrino Physics', '615', 'hodes', '', ''),
+(74, 'Guest Lecture by Dr S Ghosh', '2015-02-17 18:30:00', '2015-02-17 18:30:00', 'Dr. S Ghosh is scientist in BARC and working at Biotechnology division. He introduced students that how technology can be used to develop biogas and how it can be controlled.', '615', 'hodes', '', ''),
+(75, 'Workshop on Sahaj Yoga', '2015-03-01 18:30:00', '2015-03-04 18:30:00', 'Sahaj Yoga Meditation. Faculty of Sahaj Yoga', '611', 'hodes', '', ''),
+(76, 'FE Orientation Program 2015', '2015-07-26 18:30:00', '2015-07-26 18:30:00', 'FE orientation programmed conducted very smoothly under guidance of Prof Dr. S. D. Shete Head of Engineering Science Department. He addressed new students about engineering in RAIT and guided them so that they can achieve success in their carrier ', 'Auditorium', 'hodes', '', ''),
+(77, 'Workshop on Question Paper pat', '2012-09-11 18:30:00', '2012-09-11 18:30:00', 'The workshop organized on behalf of University of Mumbai for development of standard question paper pattern and blueprint for the subject of Applied Chemistry I &amp; II. The Chairman of committee was Prof. Dr. S. D. Shete, Head of Department of Engineering Sciences, RAIT. He was nominated as chairman by University of Mumbai ', '615', 'hodes', '', ''),
+(78, 'Workshop on Question Paper pat', '2012-09-11 18:30:00', '2012-09-11 18:30:00', 'The workshop organized on behalf of University of Mumbai for development of standard question paper pattern and blueprint for the subject of Applied Chemistry I &amp; II. The Chairman of committee was Prof. Dr. S. D. Shete, Head of Department of Engineering Sciences, RAIT. He was nominated as chairman by University of Mumbai ', '615', 'hodes', '', ''),
+(79, 'Work on behalf of University o', '2012-09-11 18:30:00', '2012-09-11 18:30:00', 'The workshop organized on behalf of University of Mumbai for development of standard question paper pattern and blueprint for the subject of Applied Chemistry I &amp; II. The Chairman of committee was Prof. Dr. S. D. Shete, Head of Department of Engineering Sciences, RAIT. He was nominated as chairman by University of Mumbai ', '615', 'hodes', '', ''),
+(80, 'Workshop on behalf of Universi', '2012-09-11 18:30:00', '2012-09-11 18:30:00', 'The workshop organized on behalf of University of Mumbai for development of standard question paper pattern and blueprint for the subject of Applied Chemistry I &amp; II. The Chairman of committee (nominated by University of Mumbai) was Prof. Dr. S. D. Shete, Head of Department of Engineering Sciences, RAIT. ', '615', 'hodes', '', ''),
+(81, 'Workshop for question paper pa', '2012-09-11 18:30:00', '2012-09-11 18:30:00', 'The workshop organized on behalf of University of Mumbai for development of standard question paper pattern and blueprint for the subject of Applied Chemistry I &amp; II. The Chairman of committee (nominated by University of Mumbai) was Prof. Dr. S. D. Shete, Head of Department of Engineering Sciences, RAIT. ', '615', 'hodes', '', ''),
+(82, 'Workshop for question paper pa', '2012-09-12 18:30:00', '2012-09-12 18:30:00', 'The workshop organized on behalf of University of Mumbai for development of standard question paper pattern and blueprint for the subject of Applied Chemistry I &amp; II. The Chairman of committee (nominated by University of Mumbai) was Prof. Dr. S. D. Shete, Head of Department of Engineering Sciences, RAIT. ', '615', 'hodes', '', ''),
+(83, 'Question Paper Pattern Develop', '2012-09-12 18:30:00', '2012-09-12 18:30:00', 'The workshop organized on behalf of University of Mumbai for development of standard question paper pattern and blueprint for the subject of Applied Chemistry I &amp; II. The Chairman of committee (nominated by University of Mumbai) was Prof. Dr. S. D. Shete, Head of Department of Engineering Sciences, RAIT. ', '615', 'hodes', '', ''),
+(84, 'Workshop on Blueprint of Appli', '2012-09-10 18:30:00', '2012-09-10 18:30:00', 'The Chairman of committee  was Prof. Dr. S. D. Shete, (nominated by University of Mumbai) Head of Department of Engineering Sciences, RAIT. ', '611', 'hodes', '', ''),
+(85, 'Workshop on behalf of Mumbai U', '2012-09-10 18:30:00', '2012-09-10 18:30:00', 'The Chairman of committee  was Prof. Dr. S. D. Shete, (nominated by University of Mumbai) Head of Department of Engineering Sciences, RAIT. ', '611', 'hodes', '', ''),
+(86, 'Seminar on behalf of Mumbai Un', '2012-09-10 18:30:00', '2012-09-10 18:30:00', 'Workshop for development of blue print for the subject of Applied Chemistry I &amp; II. The Chairman of Committee was Prof. Dr. S. D. Shete, HOD dept of Engineering Sciences. He was nominated as chairman by University of Mumbai', '615', 'hodes', '', ''),
+(87, 'workshop on development of blu', '2012-09-10 18:30:00', '2012-09-10 18:30:00', 'Workshop for development of blue print for the subject of Applied Chemistry I &amp; II. The Chairman of Committee was Prof. Dr. S. D. Shete, HOD dept of Engineering Sciences. He was nominated as chairman by University of Mumbai', '615', 'hodes', '', ''),
+(88, 'Workshop on Android', '2015-09-24 18:30:00', '2015-09-25 18:30:00', 'Successfully planned and Conducted workshop for android App Development for Third Year Engineering students of Information Technology Department.', '616', 'hod', '', ''),
+(89, 'Expert Talk Series', '2015-09-30 18:30:00', '2015-09-30 18:30:00', 'Session-II Expert Talk on ''Cryptography - Then and Now'' by Dr. Dipan Ghosh, IIT Mumbai', '615', 'hod', '', ''),
+(90, 'NTPP', '2015-09-30 18:30:00', '2015-10-02 18:30:00', 'Technical Paper Presentation Competition conducted by CSI under Computer Department', '615', 'csi', '', ''),
+(91, 'Placement Mantra', '2015-09-30 18:30:00', '2015-10-02 18:30:00', 'Most popular event of Techmate giving experience of mock placements to the participants.', '515 and 520', 'csi', '', ''),
+(92, 'Next Aim', '2015-09-30 18:30:00', '2015-10-02 18:30:00', 'Event providing mock practice for examinations of higher education such as GRE, GMAT conducted by CSI under Computer Department.', '514', 'csi', '', ''),
+(93, 'ARM University (UK) Workshop', '2015-10-06 18:30:00', '2015-10-10 18:30:00', 'The workshop is arranged for third year students. It will be given by Eduvance, Mumbai in collaboration with ARM University (UK) and Cypress Semiconductors. ', 'IT Centre (2nd FLoor)', 'hoden', '', ''),
+(94, 'Demo of New Library Software (', '2015-10-06 18:30:00', '2015-10-06 18:30:00', 'For faculty and students.', '615', 'hoden', '', ''),
+(95, 'Demo of New Library Software (', '2015-10-06 18:30:00', '2015-10-06 18:30:00', 'For faculty and students.', '615', 'hoden', '', ''),
+(96, 'Demo of New Library Software (', '2015-10-06 18:30:00', '2015-10-06 18:30:00', 'For faculty and students.', '615', 'hoden', '', ''),
+(97, 'Demo of New Library Software (', '2015-10-06 18:30:00', '2015-10-06 18:30:00', 'For faculty and students.', '615', 'hoden', '', ''),
+(98, 'Training of Library staff for ', '2015-10-09 18:30:00', '2015-10-09 18:30:00', 'For Library and BVG (Tech) staff.', '511/611', 'hoden', '', ''),
+(99, 'Training of Library staff for ', '2015-10-09 18:30:00', '2015-10-10 18:30:00', 'For Library and BVG (Tech) staff.', '511/611', 'hoden', '', ''),
+(100, 'Training of Library staff for ', '2015-10-09 18:30:00', '2015-10-10 18:30:00', 'For Library and BVG (Tech) staff.', '511', 'hoden', '', ''),
+(101, 'Training of Library staff for ', '2015-10-09 18:30:00', '2015-10-10 18:30:00', 'For Library and BVG (Tech) staff.', '511', 'hoden', '', ''),
+(102, 'Training of Library staff for ', '2015-10-09 18:30:00', '2015-10-10 18:30:00', 'For Library and BVG (Tech) staff.', '511', 'hoden', '', ''),
+(103, 'Training of Library staff for ', '2015-10-09 18:30:00', '2015-10-10 18:30:00', 'For Library and BVG (Tech) staff.', '511', 'hoden', '', ''),
+(104, 'Training of Library staff for ', '2015-10-09 18:30:00', '2015-10-10 18:30:00', 'For Library and BVG (Tech) staff.', '511', 'hoden', '', ''),
+(105, 'test', '2015-11-09 18:30:00', '2015-11-09 18:30:00', 'test', 'Room No. 615', 'faculty', '', ''),
+(106, 'Making Interactive teaching Ha', '2016-01-07 18:30:00', '2016-01-07 18:30:00', 'Session on interactive and participating learning experience by 1) Dr. Ramesh Vasappanavara 2) Dr. M. S Bhatia 3) Mr. hardik Bhatia Timing- 2 PM', '615 @ 2PM', 'faculty', '', ''),
+(107, 'D Y Patil Polytechnic', '2016-02-22 18:30:00', '2016-02-22 18:30:00', 'Diploma Project Exhibition &amp; presentation (Room No. 615 &amp; one Class Room in 6th Floor)', '6th Floor', 'PA', '', ''),
+(108, 'Expert Session ', '2016-01-17 18:30:00', '2016-01-17 18:30:00', 'Expert Session on E-Learning System by Prof. Sasikumar at 10.00 am', '615', 'faculty', '', ''),
+(109, 'Expert Session ', '2016-01-17 18:30:00', '2016-01-17 18:30:00', 'Expert Session on Pattern Recognition for ME ', '615', 'faculty', '', ''),
+(110, 'Expert Session ', '2016-01-19 18:30:00', '2016-01-19 18:30:00', 'Expert session for BE students by Mr. Munir Syad', '615', 'faculty', '', ''),
+(111, 'Expert Session ', '2016-01-26 18:30:00', '2016-01-26 18:30:00', 'Expert Session by Siby sir for ME students', '615', 'faculty', '', ''),
+(112, 'Expert Lecture on Introduction', '2016-01-07 18:30:00', '2016-01-07 18:30:00', 'Expert Lecture on Introduction to openGL by Prof. Shridhar Donamal for Second Year Students', '511', 'faculty', '', ''),
+(113, 'Full Stack Development worksho', '2016-01-28 18:30:00', '2016-01-30 18:30:00', 'Workshop for T.E students organized by IT department. Time- 10 am to 5 pm', '616 ', 'faculty', '', ''),
+(114, 'test', '2016-01-11 18:30:00', '2016-01-11 18:30:00', 'test', 't', 'faculty', '', ''),
+(115, 'DDB expert Lecture', '2016-02-07 18:30:00', '2016-02-07 18:30:00', 'Distributed Databases Expert Lecture by S.S Kumar organized for Third year Students @10 am.a', '615', 'faculty', '', ''),
+(116, 'Term Test I', '2016-02-10 18:30:00', '2016-02-12 18:30:00', 'Term Test of All Departments.', '5 Floor', 'faculty', '', ''),
+(117, 'Horizon', '2016-02-17 18:30:00', '2016-02-19 18:30:00', 'Culture Festival of RAIT', 'RAIT', 'faculty', '', ''),
+(118, 'Holiday', '2016-01-25 18:30:00', '2016-01-25 18:30:00', 'Republic Day', 'Near President Office', 'faculty', '', ''),
+(119, 'Academic Audit', '2016-02-28 18:30:00', '2016-02-28 18:30:00', 'audit of All Departments. ', 'RAIT', 'faculty', '', ''),
+(120, 'Holiday', '2016-03-06 18:30:00', '2016-03-06 18:30:00', 'Mahashivratri', '@ Your Home', 'faculty', '', ''),
+(121, 'Tech Fest', '2016-03-20 18:30:00', '2016-03-22 18:30:00', 'Tech Fest of RAIT', 'RAIT', 'faculty', '', ''),
+(122, 'EPL', '2016-03-23 18:30:00', '2016-03-24 18:30:00', 'Cricket Matches ', 'DY Patil Stadium', 'faculty', '', ''),
+(123, 'Student Feedback', '2016-03-27 18:30:00', '2016-03-28 18:30:00', 'Academic feedback One ', 'ALL Labs', 'faculty', '', ''),
+(124, 'Academic Audit II', '2016-03-30 18:30:00', '2016-03-30 18:30:00', 'Academic Audit of all Department', 'RAIT', 'faculty', '', ''),
+(125, 'Project Competition ', '2016-03-31 18:30:00', '2016-03-31 18:30:00', 'B. E Project Competition ', 'E- Yantra Lab', 'faculty', '', ''),
+(126, 'Term Test II', '2016-04-06 18:30:00', '2016-04-10 18:30:00', 'Term Test II of RAIT', 'RAIT', 'faculty', '', ''),
+(127, 'Remedial Classes', '2016-04-11 18:30:00', '2016-04-12 18:30:00', 'Remedial Classes for defaulter students', '5 Floor', 'faculty', '', ''),
+(128, 'Term End', '2016-04-15 18:30:00', '2016-04-15 18:30:00', 'End of Even Sem', 'RAIT', 'faculty', '', ''),
+(129, 'RAIT Placement', '2016-01-15 18:30:00', '2016-01-15 18:30:00', 'Placement drive of Muthshut.com ', 'Room No. 615', 'PA', '', ''),
+(130, 'RAIT Placement', '2016-01-18 18:30:00', '2016-01-18 18:30:00', 'TCS post offer connect session 9.00am to 12.00 noon', 'Room No. 615', 'PA', '', ''),
+(131, 'Term Start', '2016-01-03 18:30:00', '2016-01-03 18:30:00', 'Start of Sem II', 'RAIT', 'hodfe', '', ''),
+(132, 'First Defaulter''s List', '2016-02-08 18:30:00', '2016-01-08 18:30:00', 'Display of First Defaulter''s List', 'RAIT', 'hodfe', '', ''),
+(133, 'Term Test I', '2016-02-10 18:30:00', '2016-02-12 18:30:00', 'Term Test I Conduction', 'RAIT', 'hodfe', '', ''),
+(134, 'Term Test I Marks Display', '2016-02-16 18:30:00', '2016-02-16 18:30:00', 'Display of Term Test I marks to the students so that they can analyse and improve their performance', 'RAIT Notice Board', 'hodfe', '', ''),
+(135, 'Student Feedback', '2016-03-27 18:30:00', '2016-03-31 18:30:00', 'Feedback from students on both CO and Faculty feedback', '212', 'hodfe', '', ''),
+(136, 'Second Defaulter''s List', '2016-04-04 18:30:00', '2016-04-04 18:30:00', 'Display of Second Defaulter''s :ist', 'RAIT Notice Board', 'hodfe', '', ''),
+(137, 'Term Test II', '2016-04-06 18:30:00', '2016-04-08 18:30:00', 'Term Test II of SEM II', 'RAIT', 'hodfe', '', ''),
+(138, 'AutoCAD Practical Examination', '2016-04-17 18:30:00', '2016-04-22 18:30:00', 'AutoCAD Practical Examination Tentative dates', '212', 'hodfe', '', ''),
+(139, 'SPA Practical Examination', '2016-04-17 18:30:00', '2016-04-22 18:30:00', 'SPA Practical Examination Tentative Dates', 'SPA Labs at 5th floor and 6th ', 'hodfe', '', ''),
+(140, 'Expert Lecture on Softwares to', '2016-01-24 18:30:00', '2016-01-24 18:30:00', 'Use of different softwares for teaching Engineering Drawing Subject of FE Sem II. These softwares will help to understand some concepts of ED more easily to students.', '212', 'hodfe', '', ''),
+(141, 'Expert Lecture on Softwares to', '2016-01-24 18:30:00', '2016-01-24 18:30:00', 'Use of different softwares for teaching Engineering Drawing Subject of FE Sem II. These softwares will help to understand some concepts of ED more easily to students.', '212', 'hodfe', '', ''),
+(142, 'Seminar on ED software', '2016-01-24 18:30:00', '2016-01-24 18:30:00', 'Seminar on how to use different softwares and AutoCAD to make student understand the concept easily', '212', 'hodfe', '', ''),
+(143, 'Latex Training', '2016-01-28 18:30:00', '2016-01-28 18:30:00', 'Training on Latex for BE(IT) students for generation of their project black book.', '616 lab', 'hod', '', ''),
+(144, '1 day workshop on Parallel and', '2016-02-03 18:30:00', '2016-01-03 18:30:00', 'Expert session on PDS and Hands on Lab for ME and BE students', '615', 'faculty', '', ''),
+(145, '1 day workshop on Parallel and', '2016-02-03 18:30:00', '2016-01-03 18:30:00', 'Expert session on PDS and Hands on Lab for ME and BE students', '615', 'faculty', '', ''),
+(146, '1 day workshop on Parallel and', '2016-02-03 18:30:00', '2016-01-03 18:30:00', 'Expert session on PDS and Hands on Lab for ME and BE students', '615', 'faculty', '', ''),
+(147, 'RAIT Placement', '2016-01-28 18:30:00', '2016-01-28 18:30:00', 'Teach for India Seminar', 'Room No. 615', 'PA', '', ''),
+(148, 'D Y Patil Law College', '2016-02-05 18:30:00', '2016-02-05 18:30:00', 'Vidhi Mitra- 3.30pm to 6.30pm', 'Room No. 615', 'PA', '', ''),
+(149, 'Latex Training', '2016-02-04 18:30:00', '2016-02-04 18:30:00', 'Latex Training for BE students for Black book preparation.', '616lab', 'hod', '', ''),
+(150, 'Seminar By Oracle', '2016-02-08 18:30:00', '2016-02-08 18:30:00', 'Dept of IT (Seminar By Oracle) 01.30pm', 'Room 615', 'PA', '', ''),
+(151, 'TCS Faculty Development Sessio', '2016-03-09 18:30:00', '2016-03-09 18:30:00', 'TCS Faculty Development Session (Faculty &amp; ME Students)', '2nd Floor -206', 'PA', '', ''),
+(152, 'TCS Post Offer Connect Session', '2016-03-09 18:30:00', '2016-03-09 18:30:00', 'TCS Post Offer Connect Session10.00 to 11.30 &amp; TCS Prefinal Year Connect 11.30 to 12.30', 'Room 615', 'PA', '', ''),
+(153, 'Expert Lecture', '2016-03-08 18:30:00', '2016-03-08 18:30:00', 'Security Issues In Mobile Computing 8.30 onwords', 'Room 615', 'PA', '', ''),
+(154, 'etst', '2016-09-06 18:30:00', '2016-09-07 18:30:00', 'jkdshfkjdhl', 'hlsg', 'mandeep', 'EXTC', 'Examination'),
+(155, 'etst', '2016-09-06 18:30:00', '2016-09-07 18:30:00', 'jkdshfkjdhl', 'hlsg', 'mandeep', 'ETRX', 'Examination'),
+(156, 'Exam1', '2017-01-22 08:00:00', '2017-01-28 08:00:00', 'Examination', '511', 'mandeep', 'COMPUTER', 'Examination'),
+(157, 'Stamina', '2017-02-03 08:00:00', '2017-02-05 08:00:00', 'Sport', 'Stadium', 'mandeep', 'COMPUTER', 'Sports');
 
 --
 -- Triggers `cal_events_new`
 --
-DROP TRIGGER IF EXISTS `calendar_delete_log`;
-DELIMITER //
-CREATE TRIGGER `calendar_delete_log` AFTER DELETE ON `cal_events_new`
- FOR EACH ROW BEGIN
+DELIMITER $$
+CREATE TRIGGER `calendar_delete_log` AFTER DELETE ON `cal_events_new` FOR EACH ROW BEGIN
 
 INSERT INTO `log_calendar`(`timestamp`,`operation`,`old_event_id`,`old_event_start`,`old_event_end`,`old_event_location`,`old_event_department`,`old_event_category`,`old_event_title`,`old_event_desc`,`web_user`) VALUES (NOW(),"DELETE",OLD.event_id,OLD.start_date,OLD.end_date,OLD.location,OLD.branch, OLD.category, OLD.event_name, OLD.event_desc,OLD.web_user);
 
 
 END
-//
+$$
 DELIMITER ;
-DROP TRIGGER IF EXISTS `calendar_insert_log`;
-DELIMITER //
-CREATE TRIGGER `calendar_insert_log` AFTER INSERT ON `cal_events_new`
- FOR EACH ROW BEGIN
+DELIMITER $$
+CREATE TRIGGER `calendar_insert_log` AFTER INSERT ON `cal_events_new` FOR EACH ROW BEGIN
 
 INSERT INTO `log_calendar`(`timestamp`,`operation`,`new_event_id`,`new_event_start`,`new_event_end`,`new_event_location`,`new_event_department`,`new_event_category`,`new_event_title`,`new_event_desc`,`web_user`) VALUES (NOW(),"INSERT",NEW.event_id,NEW.start_date,NEW.end_date,NEW.location,NEW.branch, NEW.category, NEW.event_name, NEW.event_desc,NEW.web_user);
 
 
 END
-//
+$$
 DELIMITER ;
-DROP TRIGGER IF EXISTS `calendar_update_log`;
-DELIMITER //
-CREATE TRIGGER `calendar_update_log` AFTER UPDATE ON `cal_events_new`
- FOR EACH ROW BEGIN
+DELIMITER $$
+CREATE TRIGGER `calendar_update_log` AFTER UPDATE ON `cal_events_new` FOR EACH ROW BEGIN
 
 INSERT INTO `log_calendar`(`timestamp`, `operation`, `old_event_id`, `old_event_start`, `old_event_end`, `old_event_location`, `old_event_department`, `old_event_category`, `old_event_title`, `old_event_desc`, `new_event_id`, `new_event_category`, `new_event_department`, `new_event_desc`, `new_event_end`, `new_event_location`, `new_event_start`, `new_event_title`, `web_user`) VALUES (NOW(),"UPDATE",OLD.event_id,OLD.start_date,OLD.end_date,OLD.location,OLD.branch,OLD.category,OLD.event_name,OLD.event_desc,NEW.event_id,NEW.category,NEW.branch,NEW.event_desc,NEW.end_date,NEW.location,NEW.start_date,NEW.event_name,NEW.web_user);
 
 END
-//
+$$
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -1247,14 +1242,12 @@ DELIMITER ;
 -- Table structure for table `category_table`
 --
 
-CREATE TABLE IF NOT EXISTS `category_table` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `category_table` (
+  `id` int(11) NOT NULL,
   `name` varchar(30) NOT NULL,
   `branch_indicator` varchar(20) NOT NULL,
-  `category_color` varchar(20) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
+  `category_color` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `category_table`
@@ -1290,9 +1283,9 @@ INSERT INTO `category_table` (`id`, `name`, `branch_indicator`, `category_color`
 -- Table structure for table `log_calendar`
 --
 
-CREATE TABLE IF NOT EXISTS `log_calendar` (
-  `log_id` int(11) NOT NULL AUTO_INCREMENT,
-  `timestamp` timestamp NOT NULL,
+CREATE TABLE `log_calendar` (
+  `log_id` int(11) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `operation` varchar(10) NOT NULL,
   `old_event_id` int(11) NOT NULL,
   `old_event_name` varchar(50) NOT NULL,
@@ -1307,9 +1300,9 @@ CREATE TABLE IF NOT EXISTS `log_calendar` (
   `new_event_category` varchar(50) NOT NULL,
   `new_event_department` varchar(50) NOT NULL,
   `new_event_desc` text NOT NULL,
-  `new_event_end` timestamp NOT NULL,
+  `new_event_end` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `new_event_location` varchar(50) NOT NULL,
-  `new_event_start` timestamp NOT NULL,
+  `new_event_start` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `new_event_title` varchar(50) NOT NULL,
   `web_user` varchar(50) NOT NULL,
   PRIMARY KEY (`log_id`)
@@ -1536,18 +1529,17 @@ INSERT INTO `log_calendar` (`log_id`, `timestamp`, `operation`, `old_event_id`, 
 -- Table structure for table `log_user`
 --
 
-CREATE TABLE IF NOT EXISTS `log_user` (
-  `log_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `log_user` (
+  `log_id` int(11) NOT NULL,
   `old_username` varchar(50) NOT NULL,
   `new_username` varchar(50) NOT NULL,
   `old_password` varchar(50) NOT NULL,
   `new_password` varchar(50) NOT NULL,
-  `timestamp` timestamp NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `operation` varchar(10) NOT NULL,
   `user` varchar(50) NOT NULL,
-  `IP` varchar(30) NOT NULL,
-  PRIMARY KEY (`log_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+  `IP` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `log_user`
@@ -1564,13 +1556,12 @@ INSERT INTO `log_user` (`log_id`, `old_username`, `new_username`, `old_password`
 -- Table structure for table `restrictions`
 --
 
-CREATE TABLE IF NOT EXISTS `restrictions` (
-  `rest_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `restrictions` (
+  `rest_id` int(11) NOT NULL,
   `username` varchar(20) NOT NULL,
   `category` varchar(20) NOT NULL,
-  `branch` varchar(20) NOT NULL,
-  PRIMARY KEY (`rest_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+  `branch` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `restrictions`
@@ -1608,13 +1599,11 @@ INSERT INTO `restrictions` (`rest_id`, `username`, `category`, `branch`) VALUES
 -- Table structure for table `usertable`
 --
 
-CREATE TABLE IF NOT EXISTS `usertable` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `usertable` (
+  `id` int(11) NOT NULL,
   `username` varchar(30) NOT NULL,
-  `password` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=40 ;
+  `password` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `usertable`
@@ -1652,35 +1641,29 @@ INSERT INTO `usertable` (`id`, `username`, `password`) VALUES
 --
 -- Triggers `usertable`
 --
-DROP TRIGGER IF EXISTS `usertable_log_on_delete`;
-DELIMITER //
-CREATE TRIGGER `usertable_log_on_delete` AFTER DELETE ON `usertable`
- FOR EACH ROW BEGIN
+DELIMITER $$
+CREATE TRIGGER `usertable_log_on_delete` AFTER DELETE ON `usertable` FOR EACH ROW BEGIN
 
 INSERT INTO `rait_calendar_sys`.`log_user`(`timestamp`,`operation`,`old_username`,`old_password`,`IP`) VALUES (NOW(),"DELETE",OLD.username,OLD.password,"0.0.0.0");
 
 END
-//
+$$
 DELIMITER ;
-DROP TRIGGER IF EXISTS `usertable_log_on_insert`;
-DELIMITER //
-CREATE TRIGGER `usertable_log_on_insert` AFTER INSERT ON `usertable`
- FOR EACH ROW BEGIN
+DELIMITER $$
+CREATE TRIGGER `usertable_log_on_insert` AFTER INSERT ON `usertable` FOR EACH ROW BEGIN
 
 INSERT INTO `log_user`(`new_username`,`new_password`, `timestamp`, `operation`,`IP`) VALUES (NEW.username,NEW.password,NOW(),"INSERT","0.0.0.0");
 
 END
-//
+$$
 DELIMITER ;
-DROP TRIGGER IF EXISTS `usertable_log_on_update`;
-DELIMITER //
-CREATE TRIGGER `usertable_log_on_update` AFTER UPDATE ON `usertable`
- FOR EACH ROW BEGIN
+DELIMITER $$
+CREATE TRIGGER `usertable_log_on_update` AFTER UPDATE ON `usertable` FOR EACH ROW BEGIN
 
 INSERT INTO `log_user`(`old_username`, `new_username`, `old_password`, `new_password`, `timestamp`, `operation`, `IP`) VALUES (OLD.username, NEW.username, OLD.password, NEW.password, NOW(), "UPDATE", "0.0.0.0");
 
 END
-//
+$$
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -1689,15 +1672,14 @@ DELIMITER ;
 -- Table structure for table `user_table_log`
 --
 
-CREATE TABLE IF NOT EXISTS `user_table_log` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `user_table_log` (
+  `id` int(11) NOT NULL,
   `userid` varchar(30) NOT NULL,
   `action` varchar(30) NOT NULL,
   `time_of_action` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `remote_addr` varchar(45) NOT NULL,
-  `http_x_forwarded_for` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=357 ;
+  `http_x_forwarded_for` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user_table_log`
@@ -2059,6 +2041,110 @@ INSERT INTO `user_table_log` (`id`, `userid`, `action`, `time_of_action`, `remot
 (355, '8', 'Updated', '2016-10-04 09:50:27', '', ''),
 (356, '8', 'Updated', '2016-10-04 10:49:09', '', '');
 
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `admin`
+--
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`user`);
+
+--
+-- Indexes for table `cal_events_log`
+--
+ALTER TABLE `cal_events_log`
+  ADD PRIMARY KEY (`log_id`);
+
+--
+-- Indexes for table `cal_events_new`
+--
+ALTER TABLE `cal_events_new`
+  ADD PRIMARY KEY (`event_id`);
+
+--
+-- Indexes for table `category_table`
+--
+ALTER TABLE `category_table`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`);
+
+--
+-- Indexes for table `log_calendar`
+--
+ALTER TABLE `log_calendar`
+  ADD PRIMARY KEY (`log_id`);
+
+--
+-- Indexes for table `log_user`
+--
+ALTER TABLE `log_user`
+  ADD PRIMARY KEY (`log_id`);
+
+--
+-- Indexes for table `restrictions`
+--
+ALTER TABLE `restrictions`
+  ADD PRIMARY KEY (`rest_id`);
+
+--
+-- Indexes for table `usertable`
+--
+ALTER TABLE `usertable`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`);
+
+--
+-- Indexes for table `user_table_log`
+--
+ALTER TABLE `user_table_log`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `cal_events_log`
+--
+ALTER TABLE `cal_events_log`
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=959;
+--
+-- AUTO_INCREMENT for table `cal_events_new`
+--
+ALTER TABLE `cal_events_new`
+  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=158;
+--
+-- AUTO_INCREMENT for table `category_table`
+--
+ALTER TABLE `category_table`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+--
+-- AUTO_INCREMENT for table `log_calendar`
+--
+ALTER TABLE `log_calendar`
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+--
+-- AUTO_INCREMENT for table `log_user`
+--
+ALTER TABLE `log_user`
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `restrictions`
+--
+ALTER TABLE `restrictions`
+  MODIFY `rest_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+--
+-- AUTO_INCREMENT for table `usertable`
+--
+ALTER TABLE `usertable`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+--
+-- AUTO_INCREMENT for table `user_table_log`
+--
+ALTER TABLE `user_table_log`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=357;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

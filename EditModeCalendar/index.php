@@ -154,13 +154,13 @@ $events = $req->fetchAll();
 				  		<div class="col-sm-6">
 						  	<div class="form-group">
 								<label for="event_start" class="col-sm-8 control-label">Start date</label>
-							 	<input type="text" name="event_start" class="form-control datepicker" id="event_start" required>
+							 	<input type="date" name="event_start" class="form-control datepicker" id="event_start" required>
 						  	</div>
 						</div>
 						<div class="col-sm-6">
 							<div class="form-group">
 								<label for="event_end" class="col-sm-8 control-label">End date</label>
-								<input type="text" name="event_end" class="form-control datepicker" id="event_end" required>
+								<input type="date" name="event_end" class="form-control datepicker" id="event_end" required>
 							</div>
 						</div>
 					</div>
@@ -247,7 +247,7 @@ $events = $req->fetchAll();
 				</div>
 				<div class="col-sm-6">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="submit" class="btn btn-primary">Save changes</button>
+					<button type="submit" class="btn btn-primary" name="Update">Save changes</button>
 				</div>
 			  </div>
 			  </div>

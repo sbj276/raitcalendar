@@ -41,9 +41,7 @@ $events = $req->fetchAll();
 		float: none;
 		margin: 0 auto;
 	}
-    </style>
-	    <style>
-	#calendar {
+   #calendar {
 		width: 80%;float:left;
 		border-radius: 50px;
 		margin-top:50px;
@@ -60,11 +58,15 @@ $events = $req->fetchAll();
 	#lab  {
 		
 		float:left;
-		
-    
+    }
+    .bubble{
+    	font-size: 18px;
+    	width: 25%;
+    	height: 50%;
+    }
     
 tr{
-	padding:1px!important;
+	/*padding:1px!important;*/
 }
     </style>
 
@@ -168,10 +170,16 @@ tr{
 
     </div>
 
-    <div class="talk-bubble border round btm-right-in bubble">
+    <div class="talk-bubble border round btm-right-in bubble" style="">
 		<div class="talktext">
-		   <p>mandeep</p>
-		</div>
+		   <span ><b>Title:</b></span><span id="bubble-title" style=""; "></span><br>
+		   <span><b>Category:</b></span><span id="bubble-category"></span><br>
+		   <span><b>Description:</b></span><span id="bubble-description"></span><br>
+		   <span><b>Branch:</b></span><span id="bubble-branch"></span><br>
+		   <span><b>Location:</b></span><span id="bubble-location"></span><br>
+		   
+		   
+			</div>
 	</div>
 
 
@@ -207,7 +215,14 @@ tr{
 			selectHelper: false,
 			eventMouseover: function(event, jsEvent, view){
 				// $(".bubble").hide();
-				$(".bubble").find('p').html("mandeep"+event.title);	//TODO: add layoutfor description
+				$(".bubble").find('#bubble-title').html(""+event.title);
+				$(".bubble").find('#bubble-start').html(""+event.start);
+				$(".bubble").find('#bubble-end').html(""+event.end);
+				$(".bubble").find('#bubble-description').html(""+event.description);
+				$(".bubble").find('#bubble-location').html(""+event.location);
+				$(".bubble").find('#bubble-category').html(""+event.category);
+				$(".bubble").find('#bubble-branch').html(""+event.branch);	//TODO: add layoutfor description
+				console.log("color:"+event.color);
 				$(".bubble").toggle("drop",{direction: "right"});
 			},
 			eventMouseout: function(event, jsEvent, view){
@@ -233,6 +248,7 @@ tr{
 					$('#ModalDescription #event_end').val(event.end);
 					$('#ModalDescription #branch').val(event.branch);
 					//branch
+
 					$('#ModalDescription').modal('show');
 				});
 			},

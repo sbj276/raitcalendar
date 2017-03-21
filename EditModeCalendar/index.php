@@ -19,6 +19,7 @@ $events = $req->fetchAll();
 
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -119,9 +120,32 @@ $events = $req->fetchAll();
 
 						  	<div class="form-group">
 								<label for="event_category" class="col-sm-2 control-label">Category:</label>
-							  	<select name="event_category" class="form-control" id="event_category" required>
-								  	<option value="">Select Category</option>
-								  	<option style="color:#0000FF;" value="Technical">Technical</option>
+							  	<!-- <select name="event_category" class="form-control" id="event_category" required>
+								  	<option value="">Select Category</option> -->
+<?php
+include "../connect.php";	
+	// echo "<script> alert('".$_SESSION["login"]."');</script>";
+	// $sql="select category from restrictions where username='".$_SESSION['login']."'";
+
+$sql ="SELECT category FROM restrictions where username='".$_SESSION['login']."' and category!=''";
+$result =$conn->query($sql);
+if ($result->num_rows > 0) {
+    // output data of each row
+    echo "<select name='event_category' class='form-control' id='event_category' required>";
+			echo"<option value=''>Select Category</option>";
+    while($row = $result->fetch_assoc()) {
+			
+        echo"<option  value=".$row['category'].">".$row['category']."</option>";
+
+    }
+    echo"</select>";
+} else {
+    echo "<script>alert('No result')</script>";
+}
+?>
+								  	<!--query toget the categories which the user is allowed to add to-->
+								  	<!-- <option style="color:#0000FF;" value="Technical">Technical</option>
+								  	
 								  	<option style="color:#A52A2A;" value="Examination">Examination</option>
 								  	<option style="color:#7FFF00;" value="Placement">Placements</option>
 								  	<option style="color:#FF8C00;" value="Administration">Administration</option>
@@ -134,8 +158,8 @@ $events = $req->fetchAll();
 								  	<option style="color:#00FFFF;" value="Faculty">Faculty</option>
 								  	<option style="color:#FF0000;" value="Holiday">Holiday</option>
 								  	<option style="color:#808080;" value="Student">Student</option>
-								  	<option style="color:#000000;" value="Others">Others</option>
-								</select>
+								  	<option style="color:#000000;" value="Others">Others</option> -->
+								<!-- </select> -->
 						  	</div>
 						</div>
 						<div class="col-sm-6">

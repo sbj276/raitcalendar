@@ -61,12 +61,24 @@ $events = $req->fetchAll();
     }
     .bubble{
     	font-size: 18px;
-    	width: 25%;
-    	height: 50%;
+    	width: 23%;
+    	height: 40%;
+    	color: black;
+    	background-color: #ffe6e6;
+
+    	/*
+    	background-color: #fff0a0;
+    color: #333;
+    display: inline-block;
+    font: 16px/25px sans-serif;
+    padding: 15px 25px;*/
     }
     
 tr{
 	/*padding:1px!important;*/
+}
+.bubble_name{
+	color:#990000;
 }
     </style>
 
@@ -172,13 +184,11 @@ tr{
 
     <div class="talk-bubble border round btm-right-in bubble" style="">
 		<div class="talktext">
-		   <span ><b>Title:</b></span><span id="bubble-title" style=""; "></span><br>
-		   <span><b>Category:</b></span><span id="bubble-category"></span><br>
-		   <span><b>Description:</b></span><span id="bubble-description"></span><br>
-		   <span><b>Branch:</b></span><span id="bubble-branch"></span><br>
-		   <span><b>Location:</b></span><span id="bubble-location"></span><br>
-		   
-		   
+		   <span class="bubble_name"><b>Title:</b></span><span id="bubble-title" style=""; "></span><br>
+		   <span class="bubble_name"><b>Category:</b></span><span id="bubble-category"></span><br>
+		   <span class="bubble_name"><b>Description:</b></span><span id="bubble-description"></span><br>
+		   <span class="bubble_name"><b>Branch:</b></span><span id="bubble-branch"></span><br>
+		   <span class="bubble_name"><b>Location:</b></span><span id="bubble-location"></span><br>
 			</div>
 	</div>
 
@@ -222,7 +232,6 @@ tr{
 				$(".bubble").find('#bubble-location').html(""+event.location);
 				$(".bubble").find('#bubble-category').html(""+event.category);
 				$(".bubble").find('#bubble-branch').html(""+event.branch);	//TODO: add layoutfor description
-				console.log("color:"+event.color);
 				$(".bubble").toggle("drop",{direction: "right"});
 			},
 			eventMouseout: function(event, jsEvent, view){

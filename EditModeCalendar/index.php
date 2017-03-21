@@ -67,6 +67,11 @@ $events = $req->fetchAll();
 	tr{
 		padding:1px!important;
 	}
+	#Workshop{
+		color: #A0522D;
+	}
+	#Examination{}
+
     </style>
 	
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -134,9 +139,7 @@ if ($result->num_rows > 0) {
     echo "<select name='event_category' class='form-control' id='event_category' required>";
 			echo"<option value=''>Select Category</option>";
     while($row = $result->fetch_assoc()) {
-			
-        echo"<option  value=".$row['category'].">".$row['category']."</option>";
-
+        echo"<option  value=".$row['category']." id='".$row['category']."'>".$row['category']."</option>";
     }
     echo"</select>";
 } else {
@@ -227,7 +230,7 @@ if ($result->num_rows > 0) {
 
 						  	<div class="form-group">
 								<label for="event_category" class="col-sm-2 control-label">Category:</label>
-							  	<select name="event_category" class="form-control" id="event_category" required>
+							  	<!-- <select name="event_category" class="form-control" id="event_category" required>
 								  	<option value="">Select Category</option>
 								  	<option style="color:#0071c5;" value="Technical">Technical</option>
 								  	<option style="color:#40E0D0;" value="Examination">Examination</option>
@@ -243,7 +246,26 @@ if ($result->num_rows > 0) {
 								  	<option style="color:#FF8C00;" value="Holiday">Holiday</option>
 								  	<option style="color:#FF0000;" value="Others">Others</option>
 								  	<option style="color:#000000;" value="Others">Others</option>
-								</select>
+								</select> -->
+								<?php
+include "../connect.php";	
+	// echo "<script> alert('".$_SESSION["login"]."');</script>";
+	// $sql="select category from restrictions where username='".$_SESSION['login']."'";
+
+$sql ="SELECT category FROM restrictions where username='".$_SESSION['login']."' and category!=''";
+$result =$conn->query($sql);
+if ($result->num_rows > 0) {
+    // output data of each row
+    echo "<select name='event_category' class='form-control' id='event_category' required>";
+			echo"<option value=''>Select Category</option>";
+    while($row = $result->fetch_assoc()) {
+        echo"<option  value=".$row['category']." id='".$row['category']."'>".$row['category']."</option>";
+    }
+    echo"</select>";
+} else {
+    echo "<script>alert('No result')</script>";
+}
+?>
 						  	</div>
 
 

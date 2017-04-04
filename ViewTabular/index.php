@@ -117,7 +117,7 @@ font-family: OpenSans;
         <button type="button" class="btn btn-default col-md-1 disabled">&nbsp;</button>
         <button type="button" class="btn btn-default col-md-1 disabled">&nbsp;</button>
         <button type="button" class="btn btn-default col-md-2 branch" id="">All Branches</button>
-        <button type="button" class="btn btn-default col-md-2 category" id=" ">All Categories</button>
+        <button type="button" class="btn btn-default col-md-2 category" id="">All Categories</button>
 
 			</div>
 		</div>

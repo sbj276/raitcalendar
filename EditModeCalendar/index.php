@@ -87,7 +87,7 @@ $events = $req->fetchAll();
     <header style="display:block;position:relative;background:#9B1B30;height:60px;width:100%">
         <img src="../images/headerlogo.png" style="position:absolute;height:100%;width:auto;margin-left:10%">
 
-        <div style="color: #fff;float: right;margin-right: 4%;font-size: 30px;margin-left: 7px;margin-top: 9px;"><a href="../EditModeForm/" style="color:#fff"><i class="fa fa-table" aria-hidden="true" title="Toggle to form view"></i></a></div>
+       <!--  <div style="color: #fff;float: right;margin-right: 4%;font-size: 30px;margin-left: 7px;margin-top: 9px;"><a href="../EditModeForm/" style="color:#fff"><i class="fa fa-table" aria-hidden="true" title="Toggle to form view"></i></a></div> -->
         <div id="logged-in-user" style="color:#fff;float:right;    margin-right: 1%;font-size:20px;margin-top:15px;">Welcome,<?php echo $_SESSION['login']; ?></div>
 		<div style="color: #fff;float: right;margin-right: 5px;font-size: 30px;margin-left: 0px;margin-top: 9px;"><a href="../Login/logout.php" style="color:#fff"><i class="fa fa-power-off" aria-hidden="true" title="Log Out"></i></i></a></div>
     </header>
@@ -143,7 +143,7 @@ if ($result->num_rows > 0) {
     }
     echo"</select>";
 } else {
-    echo "<script>alert('No result')</script>";
+    // echo "<script>alert('No result')</script>";
 }
 ?>
 								  	<!--query toget the categories which the user is allowed to add to-->
@@ -263,7 +263,7 @@ if ($result->num_rows > 0) {
     }
     echo"</select>";
 } else {
-    echo "<script>alert('No result')</script>";
+    // echo "<script>alert('No result')</script>";
 }
 ?>
 						  	</div>

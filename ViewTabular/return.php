@@ -46,7 +46,8 @@ else if($category!=""){
 
 }
 else{
-	$sql="SELECT * FROM `cal_events_new` ;";
+	//$sql="SELECT * FROM `cal_events_new` ;";
+	$sql="SELECT *,DATE(start_date) AS start_date,DATE(end_date) AS end_date FROM cal_events_new WHERE branch='computer' and category='Technical' or category='Placement' or category='Examination' or category='Administration' or category='Alumini' or category='Faculty' or category='Fest' or category='Sports' or category='Committee' or category='Workshop' or category='Holiday' or category='Others' ";
 }
 
 $return["aaData"] = array();

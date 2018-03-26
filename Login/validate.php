@@ -39,9 +39,9 @@ if(!$result){
 }
 $row = mysqli_fetch_array($result);
 //echo 'passing2';
-//$epass=encryptIt($pass);
+$epass=encryptIt($pass);
 //echo 'username->'.$row['username'].'	pass->'.$row["password"];
-if($row["username"]==$username && $row["password"]==$pass)
+if($row["username"]==$username && $row["password"]==$epass)
 {
 			$_SESSION['login'] = "$username";
 			//populate the log table
